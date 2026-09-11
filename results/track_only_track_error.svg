@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="430" viewBox="0 0 760 430">
+<rect width="100%" height="100%" fill="white"/>
+<text x="80" y="25" font-family="sans-serif" font-size="18">North Atlantic track-only test error</text>
+<line x1="80" y1="45" x2="80" y2="370" stroke="#111"/>
+<line x1="80" y1="370" x2="735" y2="370" stroke="#111"/>
+<line x1="80" y1="370.0" x2="735" y2="370.0" stroke="#e5e7eb"/>
+<text x="8" y="374.0" font-family="sans-serif" font-size="11">0 km</text>
+<line x1="80" y1="288.8" x2="735" y2="288.8" stroke="#e5e7eb"/>
+<text x="8" y="292.8" font-family="sans-serif" font-size="11">215 km</text>
+<line x1="80" y1="207.5" x2="735" y2="207.5" stroke="#e5e7eb"/>
+<text x="8" y="211.5" font-family="sans-serif" font-size="11">430 km</text>
+<line x1="80" y1="126.2" x2="735" y2="126.2" stroke="#e5e7eb"/>
+<text x="8" y="130.2" font-family="sans-serif" font-size="11">645 km</text>
+<line x1="80" y1="45.0" x2="735" y2="45.0" stroke="#e5e7eb"/>
+<text x="8" y="49.0" font-family="sans-serif" font-size="11">861 km</text>
+<text x="68.0" y="400" font-family="sans-serif" font-size="12">+6h</text>
+<text x="286.3" y="400" font-family="sans-serif" font-size="12">+12h</text>
+<text x="504.7" y="400" font-family="sans-serif" font-size="12">+24h</text>
+<text x="723.0" y="400" font-family="sans-serif" font-size="12">+48h</text>
+<polyline fill="none" stroke="#9ca3af" stroke-width="2.5" points="80.0,323.4 298.3,278.8 516.7,195.2 735.0,45.0"/>
+<circle cx="80.0" cy="323.4" r="3.5" fill="#9ca3af"/>
+<circle cx="298.3" cy="278.8" r="3.5" fill="#9ca3af"/>
+<circle cx="516.7" cy="195.2" r="3.5" fill="#9ca3af"/>
+<circle cx="735.0" cy="45.0" r="3.5" fill="#9ca3af"/>
+<rect x="80" y="414" width="10" height="10" fill="#9ca3af"/>
+<text x="95" y="423" font-family="sans-serif" font-size="11">persistence</text>
+<polyline fill="none" stroke="#f59e0b" stroke-width="2.5" points="80.0,359.3 298.3,343.8 516.7,302.2 735.0,195.0"/>
+<circle cx="80.0" cy="359.3" r="3.5" fill="#f59e0b"/>
+<circle cx="298.3" cy="343.8" r="3.5" fill="#f59e0b"/>
+<circle cx="516.7" cy="302.2" r="3.5" fill="#f59e0b"/>
+<circle cx="735.0" cy="195.0" r="3.5" fill="#f59e0b"/>
+<rect x="225" y="414" width="10" height="10" fill="#f59e0b"/>
+<text x="240" y="423" font-family="sans-serif" font-size="11">constant-motion</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="80.0,360.0 298.3,346.4 516.7,312.0 735.0,232.7"/>
+<circle cx="80.0" cy="360.0" r="3.5" fill="#2563eb"/>
+<circle cx="298.3" cy="346.4" r="3.5" fill="#2563eb"/>
+<circle cx="516.7" cy="312.0" r="3.5" fill="#2563eb"/>
+<circle cx="735.0" cy="232.7" r="3.5" fill="#2563eb"/>
+<rect x="370" y="414" width="10" height="10" fill="#2563eb"/>
+<text x="385" y="423" font-family="sans-serif" font-size="11">ridge</text>
+<polyline fill="none" stroke="#059669" stroke-width="2.5" points="80.0,359.5 298.3,345.8 516.7,312.3 735.0,233.5"/>
+<circle cx="80.0" cy="359.5" r="3.5" fill="#059669"/>
+<circle cx="298.3" cy="345.8" r="3.5" fill="#059669"/>
+<circle cx="516.7" cy="312.3" r="3.5" fill="#059669"/>
+<circle cx="735.0" cy="233.5" r="3.5" fill="#059669"/>
+<rect x="515" y="414" width="10" height="10" fill="#059669"/>
+<text x="530" y="423" font-family="sans-serif" font-size="11">gru</text>
+</svg>

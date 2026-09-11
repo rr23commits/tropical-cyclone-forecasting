@@ -1,0 +1,4 @@
+/data/raw/era5/
+
+__pycache__/
+*.py[cod]
