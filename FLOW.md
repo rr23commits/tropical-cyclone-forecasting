@@ -20,6 +20,10 @@ The loader skips the IBTrACS units row and parses timestamps/numeric USA fields.
 
 `python3 -m src.run_error_analysis <csv>` recreates exactly the final split and selected-model procedure, but changes no settings and writes no model state. `src.error_analysis.error_rows()` combines each test origin’s source metadata, reconstructed prediction, track error, wind error, and descriptive intensity/motion/wind-change categories. `summarize()` writes aggregate and conditional tables, with storm-clustered bootstrap intervals; it never treats serial windows as independent storms.
 
+## Static research-replay frontend flow
+
+`make frontend-data` calls `src.export_replay.build_payload()` on existing `results/track_only_error_analysis/held_out_errors.csv` and `overall.csv`, with the locally available official IBTrACS CSV only to map each SID to its real name, basin, and ATCF ID. The exporter groups repeated per-model rows into one observed IBTrACS track per SID and one forecast set per issue time/horizon, retaining target states, predictions, and archived errors. `frontend/app.js` loads that payload and the bundled local country-boundary topology, renders an SVG geographic map with pan/zoom/fit, and binds every observed timestamp to slider, scrub, click, and playback state. `togglePanel()` independently changes the collapsed panel class and the corresponding map workspace margin, then redraws after the layout transition. `make serve` exposes the static directory only; no model execution occurs in the browser.
+
 ## Phase 4 history-ablation flow
 
 `python3 -m src.run_history_ablation <csv>` builds 2/3/5/7/9-state samples through the existing Phase 1 builder. Each length keeps its own eligible training windows, while `align_common_origins()` limits validation and test evaluation to shared `(SID, issue_time, target_time)` keys. The GRU selection procedure remains unchanged; the runner chooses the lowest common-validation track error per horizon and writes `results/phase4_history_ablation.csv`.

@@ -1,4 +1,5 @@
 /data/raw/era5/
+/frontend/data/
 
 __pycache__/
 *.py[cod]

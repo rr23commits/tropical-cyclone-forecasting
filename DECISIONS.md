@@ -97,3 +97,9 @@
 - **Decision:** Keep the final five-state GRU, candidate widths, training budget, features, target definitions, and chronological splits unchanged while analysing errors.
 - **Why:** Error findings are useful only if they describe the reported model rather than a moving architecture.
 - **Consequence:** The analysis recreates the selected model deterministically and exports held-out rows. It reports storm-macro, 2,000-resample bootstrap intervals because six-hour windows within one storm are correlated.
+
+## Static historical research-replay frontend
+
+- **Decision:** Build the frontend as a dependency-free static page that projects the existing held-out error rows onto an SVG map; export a compact JSON payload from those rows rather than adding a backend or running models in the UI.
+- **Why:** `held_out_errors.csv` already includes true IBTrACS issue/target states and every frozen model prediction at +6/+12/+24/+48 hours. A static export is sufficient for historical replay and prevents a UI from implying live operational inference.
+- **Consequence:** The UI labels itself RESEARCH REPLAY / NON-OPERATIONAL. Its export supplements result rows with the corresponding real IBTrACS `NAME`, `BASIN`, and `USA_ATCF_ID` only for display. A bundled Natural Earth-derived country-boundary file provides an offline basemap; environmental overlays and other absent experiment fields remain unavailable.
