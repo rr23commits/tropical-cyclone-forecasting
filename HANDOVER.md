@@ -16,6 +16,7 @@ The original July pressure-wind job `e6585a2b-5393-43a2-b553-b29507b0af8d` was r
 - The full-width top header has been removed. The map starts at the viewport top and reserves only the currently open panel widths; collapse sets that side's map margin to zero. `TROP-CYC` is a small left-panel lockup, while local replay/held-out and non-operational status are in the bottom strip.
 - Successful frontend initialization replaces the empty loading container with the workstation template. The right panel's visible close control is a viewport-level, panel-edge button because the panel itself scrolls; the screen-edge tab reopens it after collapse.
 - `make test` passed 47 tests after the replay-export changes. `node --check frontend/app.js` passed, and the locally served HTML, replay payload, and basemap were fetched successfully.
+- `make evaluation-report` reads the existing held-out error exports without retraining and writes `results/track_only_evaluation/`: model×horizon metrics with existing storm-level CIs, difficulty/year tables, paired GRU--Ridge comparisons, and three SVG plots. The current report was generated and `make test` passed 48 tests.
 - Full tests: `KMP_DUPLICATE_LIB_OK=TRUE python3 -m unittest discover -s tests -p 'test_*.py' -v` (46 tests passed after the error-analysis addition). These include mocked ERA5 tests only; no CDS request is made.
 - Run the Phase 1 audit: `python3 src/audit_phase1.py /path/to/ibtracs.NA.list.v04r01.csv`.
 - Run baselines: `python3 -m src.run_baselines /path/to/ibtracs.NA.list.v04r01.csv`.

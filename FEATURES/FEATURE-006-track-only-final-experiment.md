@@ -24,6 +24,10 @@ The reproducible artifacts are `results/track_only_baselines.csv`, `results/trac
 
 `src.run_error_analysis` recreates the frozen experiment and exports `held_out_errors.csv` plus overall, conditional, annual, and per-storm CSVs under `results/track_only_error_analysis/`. The retained categories are issue intensity, realised target motion, and realised wind change; they are descriptive slices, not extra model inputs or causal attribution. Intervals are 95% percentile intervals from 2,000 fixed-seed resamples of whole storms. The +48-hour GRU has a 361.41 km origin-weighted mean track error but a 792.12 km P95, so mean-only reporting would hide material tail risk. Wind forecasts systematically underpredict strengthening and overpredict weakening, especially at longer lead times.
 
+## Archived evaluation report
+
+`make evaluation-report` produces `results/track_only_evaluation/` directly from the held-out predictions already exported by the frozen experiment. `model_horizon_summary.csv` provides mean/median/P95 track error, wind MAE/RMSE/bias, and existing storm-level CIs for all models and leads. `difficulty_summary.csv` and `yearly_stability.csv` retain the established motion, intensity, intensity-change, and 2020--2025 views. `paired_gru_vs_ridge.csv` compares only common origins and reports storm-clustered paired delta intervals. At +6h, GRU's mean track error is 1.34 km higher than Ridge (paired storm CI 0.67 to 2.33 km); at +24/+48h, track differences are uncertain while GRU's wind MAE advantage is retained. The three SVGs visualize model track error, wind MAE, and GRU/Ridge annual track stability.
+
 ## Limitations
 
 The test span is six seasons and storm origins within a storm are correlated. The analysis controls the latter through storm-level summaries and resampling, but it is not an independent storm-season replication study. As a track-only model it cannot attribute failures to environmental conditions, shear, SST, or imagery.
