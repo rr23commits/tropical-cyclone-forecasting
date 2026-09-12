@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TROP-CYC / Research Replay</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="app" class="app loading"></main>
+    <template id="ui">
+      <section class="map-wrap">
+        <svg id="map" role="img" aria-label="Storm replay map"></svg>
+        <div id="tooltip" class="tooltip" hidden></div>
+        <div class="map-key"><span><i class="dot observed"></i>Observed IBTrACS</span><span><i id="forecastKey" class="line forecast"></i><span id="forecastKeyText">GRU</span> forecast</span><span><i class="line actual"></i>Actual future</span></div>
+        <div class="map-tools"><button id="zoomIn" title="Zoom in">+</button><button id="zoomOut" title="Zoom out">−</button><button id="fitMap" title="Fit selected storm">⊙</button></div>
+      </section>
+      <aside id="left" class="panel left-panel">
+        <button class="panel-toggle" data-panel="left" aria-label="Toggle storm panel">‹</button>
+        <div class="panel-kicker"><b class="app-mark">TROP-CYC</b> ◆ STORM STATUS <span>HELD-OUT TEST</span></div>
+        <label class="select-label">STORM / SEASON<select id="stormSelect"></select></label>
+        <h1 id="stormTitle"></h1>
+        <p id="stormMeta" class="muted"></p>
+        <div class="readings">
+          <div><small>CURRENT FIX</small><b id="position"></b></div>
+          <div><small>OBSERVED WIND</small><b id="wind"></b></div>
+          <div><small>REPLAY TIME</small><b id="replayTime"></b></div>
+          <div><small>FORECASTS</small><b id="forecastCount"></b></div>
+        </div>
+        <div class="section-title">TRACK DISPLAY</div>
+        <label class="check"><input id="showObserved" type="checkbox" checked /> Observed track <em>IBTrACS</em></label>
+        <label class="check"><input id="showActual" type="checkbox" checked /> Actual future <em>verification</em></label>
+        <p class="fineprint">Historical IBTrACS observations and frozen held-out predictions only. This interface performs no inference.</p>
+      </aside>
+      <aside id="right" class="panel right-panel">
+        <div class="panel-kicker">◉ FORECAST INTELLIGENCE <span class="ready">REPLAY READY</span></div>
+        <div class="section-title flex">MODEL <select id="modelSelect"></select></div>
+        <div class="forecast-table"><div class="forecast-head"><span>LEAD</span><span>FORECAST POS.</span><span>WIND</span><span>TRACK ERR.</span></div><div id="forecastRows"></div></div>
+        <p class="fineprint">Error is distance between this archived prediction and the actual IBTrACS target state.</p>
+        <div class="section-title">INTENSITY TRAJECTORY <span class="legend"><i class="line observed"></i>observed <i id="chartLegendLine" class="line forecast"></i><span id="chartLegendText">GRU</span></span></div>
+        <svg id="intensity" class="chart" role="img" aria-label="Observed and predicted wind speed"></svg>
+        <div class="section-title">HELD-OUT MODEL COMPARISON</div>
+        <div id="comparison" class="comparison"></div>
+      </aside>
+      <button id="rightCollapse" class="panel-edge-control" data-panel="right" aria-label="Collapse forecast panel">›</button>
+      <button id="leftTab" class="edge-tab" data-panel="left" aria-label="Open storm panel">›</button>
+      <button id="rightTab" class="edge-tab" data-panel="right" aria-label="Open forecast panel">‹</button>
+      <footer class="timeline">
+        <button id="previous" title="Previous replay point">|◀</button><button id="play" class="play" title="Play replay">▶</button><button id="next" title="Next replay point">▶|</button>
+        <label class="speed">SPEED <select id="speed"><option value="1100">1×</option><option value="550" selected>2×</option><option value="220">5×</option></select></label>
+        <div class="time-readout"><small>TIMESTAMP (T=0)</small><b id="timelineTime"></b></div>
+        <input id="scrubber" type="range" min="0" value="0" />
+        <div class="replay-label"><small>MODE: LOCAL REPLAY // HELD-OUT</small><b>RESEARCH REPLAY // NON-OPERATIONAL</b></div>
+        <button id="fullCanvas" class="canvas">⛶ FULL CANVAS</button>
+      </footer>
+    </template>
+    <script src="app.js"></script>
+  </body>
+</html>
