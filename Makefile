@@ -1,7 +1,10 @@
-.PHONY: frontend-data serve test
+.PHONY: frontend-data evaluation-report serve test
 
 frontend-data:
 	python3 -m src.export_replay
+
+evaluation-report:
+	python3 -m src.report_evaluation
 
 serve: frontend-data
 	python3 -m http.server 8000 --directory frontend
