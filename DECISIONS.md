@@ -111,6 +111,12 @@
 - **Why:** Error findings are useful only if they describe the reported model rather than a moving architecture.
 - **Consequence:** The analysis recreates the selected model deterministically and exports held-out rows. It reports storm-macro, 2,000-resample bootstrap intervals because six-hour windows within one storm are correlated.
 
+## Evaluation-finalization evidence
+
+- **Decision:** Preserve the frozen track-only task and add reproducible evidence rather than new model families: training-only EDA, source/output provenance hashes, directional residual diagnostics, and a three-fixed-seed GRU robustness run. Report paired GRU--Ridge point estimates as storm-macro means because their confidence intervals resample whole storms.
+- **Why:** Concatenated cyclone tracks are not one stationary series, and per-origin ARIMA with five historical states would be an invalid or weak comparison. The material evaluation risks were provenance, stochastic-model sensitivity, and a prior mismatch between paired point and interval estimators.
+- **Consequence:** Seeds 42, 43, and 44 are all reported with no test-set selection. The primary seed-42 table remains archived for continuity; `results/README.md` identifies final artifacts. ERA5, ARIMA, ADF/KPSS, and new architectures remain out of scope.
+
 ## Static historical research-replay frontend
 
 - **Decision:** Build the frontend as a dependency-free static page that projects the existing held-out error rows onto an SVG map; export a compact JSON payload from those rows rather than adding a backend or running models in the UI.

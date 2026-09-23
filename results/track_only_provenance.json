@@ -1,0 +1,77 @@
+{
+  "code_commit": "3b0775b22c8fabff0c9ad9581ef445ca1ed0aeff",
+  "dataset": {
+    "name": "IBTrACS v04r01 North Atlantic / hurdat_atl",
+    "path": "/private/tmp/ibtracs.NA.list.v04r01.csv",
+    "sha256": "cff31db40e816f949475639fc1359699ae597abac8c0b5e4972d7edffcb7418e"
+  },
+  "environment": {
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "3.0.3",
+      "torch": "2.12.1"
+    },
+    "platform": "macOS-26.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]"
+  },
+  "output_sha256": {
+    "results/track_only_baselines.csv": "3df3d8fe7d35811aa99346436d7af89f53ea502da784807745924645273a08b5",
+    "results/track_only_eda/data_counts.csv": "629f0190a7c0004cac760bb9dc59dccdf2f1466352f8f50fb603d9fa12fd82a3",
+    "results/track_only_error_analysis/held_out_errors.csv": "e69dfbc9d1bb64779b4d2466bfddfc53fbb67ca4fed0aa11f34f62288789c0a8",
+    "results/track_only_evaluation/model_horizon_summary.csv": "458b5cf26753811733ca3d5d80745cf64daef6132030b19ef25b278403fd6933",
+    "results/track_only_evaluation/paired_gru_vs_ridge.csv": "56b4026661f928044932b88d1fc253ed2177d463e2442afda2ff52b18a877d72",
+    "results/track_only_gru_comparison.csv": "9ece5726bffbfc4e8d0d0c82b27427c5f35cbfe2c4297307f1ba9ca7e0975aa9",
+    "results/track_only_gru_seed_results.csv": "a414e2816da5117829501d3272f552d68521e96188488c37ce13ce9897910225",
+    "results/track_only_gru_seed_summary.csv": "1772cfc9697461ea985638d12f56beb2091023f9fbc22e9dab179dc167fee153"
+  },
+  "protocol": {
+    "features": [
+      "latitude",
+      "longitude",
+      "wind",
+      "north_step_km",
+      "east_step_km",
+      "speed_kmh",
+      "direction_sin",
+      "direction_cos",
+      "wind_change"
+    ],
+    "gru": {
+      "batch_size": 64,
+      "hidden_sizes": [
+        16,
+        32
+      ],
+      "learning_rate": 0.001,
+      "max_epochs": 100,
+      "patience": 15,
+      "robustness_seeds": [
+        42,
+        43,
+        44
+      ],
+      "weight_decay": 0.0001
+    },
+    "history_times": [
+      "t-24",
+      "t-18",
+      "t-12",
+      "t-6",
+      "t"
+    ],
+    "horizons_hours": [
+      6,
+      12,
+      24,
+      48
+    ],
+    "targets": [
+      "north_displacement_km",
+      "east_displacement_km",
+      "wind_change_kt"
+    ],
+    "test_years": "2020-2025",
+    "train_end_year": 2015,
+    "validation_end_year": 2019
+  }
+}

@@ -1,0 +1,13 @@
+horizon_hours,split,origins,storms
+6,train,9433,519
+6,validation,1221,63
+6,test,1772,107
+12,train,8899,505
+12,validation,1153,62
+12,test,1661,97
+24,train,7889,460
+24,validation,1026,55
+24,test,1465,89
+48,train,6178,377
+48,validation,805,45
+48,test,1115,81

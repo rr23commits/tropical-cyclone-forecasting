@@ -1,5 +1,11 @@
 # Handover
 
+## Latest track-only evaluation finalization (2026-09-23)
+
+- The primary task, inputs, targets, splits, models, and archived seed-42 results are unchanged. `results/track_only_eda/` now holds reproducible data counts, missingness, split/horizon counts, training-only distributions, and deterministic training-storm trajectory/wind illustrations. `results/track_only_provenance.json` records the local IBTrACS SHA-256, Git revision, environment, frozen configuration, seeds, and key-output hashes. `results/README.md` distinguishes final `track_only_*` artifacts from historical phase files and incomplete Genesis work.
+- `held_out_errors.csv` now includes direct north/east residuals. The paired GRU--Ridge table uses equal-storm point differences matching its whole-storm bootstrap CI. Fixed seeds 42/43/44 are all in `results/track_only_gru_seed_results.csv` with mean/std in `results/track_only_gru_seed_summary.csv`; none was selected by test performance.
+- Reproduce with `IBTRACS_CSV=/path/to/ibtracs.NA.list.v04r01.csv make reproduce-track-only`; it runs no CDS/ERA5 path. Do not add ARIMA/ADF/KPSS to this ragged five-state direct-forecast panel without a separately scoped question.
+
 ## Current state
 
 This is a B.Tech tropical-cyclone track and wind forecasting project. The finalized primary result is the reproducible IBTrACS v04r01 North Atlantic, HURDAT-aligned, track-only experiment: five six-hour history states, direct +6/+12/+24/+48-hour track/wind forecasts, train <=2015, validation 2016--2019, and held-out 2020--2025 storms. Its source-data reproduction, held-out error analysis, report, and replay were regenerated on 2026-09-16 and agree with the archived metrics. Genesis ERA5 remains a separate incomplete extension: 899 validated outputs, 5 persisted CDS jobs, 20 no-ID delivery-unknown entries, and 1,868 no-ID DNS-resolution failures. Its 374 complete candidates provide 370 train / 4 validation / 0 test histories, so no ERA5 feature extraction, model, or reported environmental result is authorized. Satellite data is not implemented.
