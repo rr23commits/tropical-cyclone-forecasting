@@ -1,0 +1,21 @@
+{
+  "model": "lstm",
+  "sequence_length": 12,
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "selected_architecture": {
+    "input_size": 1,
+    "hidden_size": 8,
+    "layers": 1,
+    "output_size": 1,
+    "cell": "LSTM"
+  },
+  "selected_hyperparameters": {
+    "hidden_size": 8,
+    "learning_rate": 0.01,
+    "epochs": 30,
+    "seed": 42
+  },
+  "retained_sids": 738
+}

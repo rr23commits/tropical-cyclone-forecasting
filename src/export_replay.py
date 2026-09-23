@@ -101,7 +101,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--errors", type=Path, default=Path("results/track_only_error_analysis/held_out_errors.csv"))
     parser.add_argument("--metrics", type=Path, default=Path("results/track_only_error_analysis/overall.csv"))
-    parser.add_argument("--ibtracs", type=Path, default=Path("/private/tmp/ibtracs.NA.list.v04r01.csv"), help="optional official source CSV for storm display identity")
+    parser.add_argument("--ibtracs", type=Path, default=Path("data/raw/ibtracs.NA.list.v04r01.csv"), help="optional official source CSV for storm display identity")
     parser.add_argument("--output", type=Path, default=Path("frontend/data/replay.json"))
     args = parser.parse_args()
     payload = build_payload(pd.read_csv(args.errors), pd.read_csv(args.metrics), load_storm_identity(args.ibtracs))

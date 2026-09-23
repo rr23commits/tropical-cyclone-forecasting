@@ -1,0 +1,23 @@
+{
+  "source": "data/raw/ibtracs.NA.list.v04r01.csv",
+  "protocol": {
+    "train_end": "2015-12",
+    "validation_end": "2019-12",
+    "test": "2020-01 through 2025-12",
+    "forecast": "expanding-window one-step-ahead",
+    "sequence_length": 12
+  },
+  "selected_architecture": {
+    "input_size": 1,
+    "hidden_size": 8,
+    "layers": 1,
+    "output_size": 1,
+    "cell": "LSTM"
+  },
+  "selected_hyperparameters": {
+    "hidden_size": 8,
+    "learning_rate": 0.01,
+    "epochs": 30,
+    "seed": 42
+  }
+}

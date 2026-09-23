@@ -2,7 +2,7 @@
   "code_commit": "3b0775b22c8fabff0c9ad9581ef445ca1ed0aeff",
   "dataset": {
     "name": "IBTrACS v04r01 North Atlantic / hurdat_atl",
-    "path": "/private/tmp/ibtracs.NA.list.v04r01.csv",
+    "path": "data/raw/ibtracs.NA.list.v04r01.csv",
     "sha256": "cff31db40e816f949475639fc1359699ae597abac8c0b5e4972d7edffcb7418e"
   },
   "environment": {
