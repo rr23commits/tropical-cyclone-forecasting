@@ -40,7 +40,7 @@ Prevent leakage by enforcing storm-level chronological splits, using only observ
 
 ## 7. Experiment records and reproducibility
 
-Use one fixed random seed per reported run. Record the IBTrACS version and download date, filtering counts, split manifest, feature set, horizon, model settings, package versions, and metrics in a small run table or CSV. Keep raw data out of Git; commit only code, configuration, and lightweight result summaries. Re-run the baselines after any change to filtering, splits, or feature construction.
+The archived seed-42 primary result is complemented by fixed seeds 42, 43, and 44, each selected solely on validation data and reported without choosing a test winner. `src.write_provenance` writes the IBTrACS SHA-256, code revision, Python/package versions, frozen split/configuration, seeds, and output hashes to `results/track_only_provenance.json`. `src.report_eda` writes data eligibility/missingness, training-only distributions, split/horizon counts, and deterministic training-storm illustrations to `results/track_only_eda/`. Keep raw data out of Git; commit only code, configuration, and lightweight result summaries.
 
 ## 8. Deferred extensions
 

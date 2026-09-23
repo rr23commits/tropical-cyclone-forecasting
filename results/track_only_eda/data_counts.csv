@@ -1,0 +1,11 @@
+stage,states,storms
+loaded records,127245,2299
+"North Atlantic main records, 1980-2025",41227,743
+exact six-hour ticks,20770,743
+HURDAT Atlantic agency,20739,738
+eligible tropical/subtropical statuses,16276,738
+complete position and wind,16259,738
+final eligible retained states,16259,738
+retained train storms,12283,548
+retained validation storms,1590,70
+retained test storms,2386,120

@@ -27,6 +27,8 @@ class ErrorAnalysisTests(unittest.TestCase):
         samples = ForecastSamples(np.zeros((1, 5, 9)), np.zeros((1, 3)), metadata, np.empty((1, 5), dtype=object), 6)
         rows = error_rows(samples, np.zeros((1, 3)), "test")
         self.assertEqual(rows.loc[0, "track_error_km"], 0.0)
+        self.assertEqual(rows.loc[0, "north_error_km"], 0.0)
+        self.assertEqual(rows.loc[0, "east_error_km"], 0.0)
         self.assertEqual(rows.loc[0, "wind_abs_error_kt"], 0.0)
 
     def test_summary_uses_storm_level_interval(self) -> None:

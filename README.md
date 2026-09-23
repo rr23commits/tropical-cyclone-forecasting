@@ -41,9 +41,9 @@ The table below summarizes the archived 2020–2025 test results. Each cell is *
 | +24h | 462.8 / 14.2 | 179.4 / 14.2 | 153.5 / 12.8 | 152.8 / 11.4 |
 | +48h | 860.5 / 20.7 | 463.3 / 20.7 | 363.5 / 18.3 | 361.4 / 16.4 |
 
-The complete evaluation includes median and P95 track error, wind RMSE and bias, and storm-level bootstrap confidence intervals in `results/track_only_evaluation/model_horizon_summary.csv`. At +48h, GRU mean track error is 361.4 km and its P95 is 792.1 km, illustrating the long error tail at extended lead times.
+The complete evaluation includes median and P95 track error, wind RMSE and bias, storm-level bootstrap confidence intervals, directional residual diagnostics, and a fixed three-seed GRU robustness table in `results/track_only_evaluation/`. At +48h, GRU mean track error is 361.4 km and its P95 is 792.1 km, illustrating the long error tail at extended lead times.
 
-These headline means are origin-weighted. Since origins from the same storm are correlated, the report also supplies storm-macro means and 95% bootstrap intervals. The paired GRU--Ridge table resamples whole-storm mean differences on identical origins. It supports Ridge's lower +6h mean track error; later track-error intervals include zero. GRU has lower wind MAE at +12h, +24h, and +48h under the paired storm bootstrap; the +6h wind interval includes zero. These are comparisons within this fixed retrospective experiment, not operational-skill claims.
+These headline means are origin-weighted. Since origins from the same storm are correlated, the report also supplies storm-macro means and 95% bootstrap intervals. The paired GRU--Ridge table reports both its point differences and intervals as equal-storm-weighted paired estimates on identical origins. It supports Ridge's lower +6h mean track error; later track-error intervals include zero. GRU has lower wind MAE at +12h, +24h, and +48h under the paired storm bootstrap; the +6h wind interval includes zero. These are comparisons within this fixed retrospective experiment, not operational-skill claims.
 
 ## Error analysis
 
@@ -95,6 +95,7 @@ python3 -m src.run_baselines "$IBTRACS_CSV"
 python3 -m src.run_gru "$IBTRACS_CSV"
 python3 -m src.run_error_analysis "$IBTRACS_CSV"
 make evaluation-report
+IBTRACS_CSV="$IBTRACS_CSV" make eda gru-seed-robustness provenance
 make frontend-data
 make serve
 ```
@@ -111,6 +112,12 @@ Run the test suite:
 make test
 ```
 
+To regenerate every final track-only output from the source CSV, including the three fixed GRU seeds, run:
+
+```bash
+IBTRACS_CSV=/path/to/ibtracs.NA.list.v04r01.csv make reproduce-track-only
+```
+
 Serve the frontend through the standard local workflow:
 
 ```bash
@@ -125,6 +132,7 @@ python3 -m http.server 8000 --directory frontend
 ```
 
 Generated replay data lives under `frontend/data/` and is excluded from version control.
+`results/README.md` separates final reportable artifacts from retained historical phases and incomplete Genesis feasibility outputs.
 
 ## Limitations and next step
 

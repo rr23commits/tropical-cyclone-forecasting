@@ -41,6 +41,10 @@ def error_rows(samples: ForecastSamples, prediction: np.ndarray, model: str) -> 
     rows["predicted_lon"] = predicted_lon
     rows["predicted_wind"] = predicted_wind
     rows["track_error_km"] = haversine_km(predicted_lat, predicted_lon, target_lat, target_lon)
+    # These are direct-target residuals, so they retain directional error that a
+    # non-negative great-circle distance intentionally discards.
+    rows["north_error_km"] = prediction[:, 0] - samples.targets[:, 0]
+    rows["east_error_km"] = prediction[:, 1] - samples.targets[:, 1]
     rows["wind_error_kt"] = predicted_wind - rows["target_wind"].to_numpy(dtype=float)
     rows["wind_abs_error_kt"] = rows["wind_error_kt"].abs()
     rows["target_motion_kmh"] = haversine_km(issue_lat, issue_lon, target_lat, target_lon) / samples.horizon_hours
