@@ -1,0 +1,31 @@
+{
+  "model": "xgboost",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "feature_names": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_6",
+    "lag_12",
+    "month_sin",
+    "month_cos",
+    "trailing_mean_3"
+  ],
+  "lags": [
+    1,
+    2,
+    3,
+    6,
+    12
+  ],
+  "trailing_mean_window": 3,
+  "selected_hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 1,
+    "learning_rate": 0.05,
+    "trailing_mean": true
+  },
+  "retained_sids": 738
+}

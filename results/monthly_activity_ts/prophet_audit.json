@@ -1,0 +1,15 @@
+{
+  "model": "prophet",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "selected_configuration": {
+    "changepoint_prior_scale": 0.1,
+    "seasonality_prior_scale": 10.0,
+    "yearly_fourier_order": 5,
+    "seasonality_mode": "additive"
+  },
+  "yearly_seasonality": true,
+  "external_regressors": [],
+  "retained_sids": 738
+}

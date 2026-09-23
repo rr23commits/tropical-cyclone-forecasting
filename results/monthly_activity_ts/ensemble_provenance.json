@@ -1,0 +1,18 @@
+{
+  "protocol": {
+    "selection": "validation-only MAE",
+    "forecast": "frozen blend weight on expanding one-step forecasts",
+    "train_end": "2015-12",
+    "validation_end": "2019-12",
+    "test": "2020-01 through 2025-12"
+  },
+  "components": [
+    "XGBoost",
+    "Prophet"
+  ],
+  "selected_weight": 0.55,
+  "source_artifacts": [
+    "xgboost_forecasts.csv",
+    "prophet_forecasts.csv"
+  ]
+}

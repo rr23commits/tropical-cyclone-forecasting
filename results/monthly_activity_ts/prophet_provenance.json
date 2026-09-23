@@ -1,0 +1,18 @@
+{
+  "source": "data/raw/ibtracs.NA.list.v04r01.csv",
+  "protocol": {
+    "train_end": "2015-12",
+    "validation_end": "2019-12",
+    "test": "2020-01 through 2025-12",
+    "forecast": "expanding-window one-step-ahead",
+    "timestamps": "shared monthly validation/test index"
+  },
+  "selected_configuration": {
+    "changepoint_prior_scale": 0.1,
+    "seasonality_prior_scale": 10.0,
+    "yearly_fourier_order": 5,
+    "seasonality_mode": "additive"
+  },
+  "yearly_seasonality": true,
+  "external_regressors": []
+}

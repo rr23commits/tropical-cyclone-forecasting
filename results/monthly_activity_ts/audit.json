@@ -1,0 +1,39 @@
+{
+  "months": 552,
+  "zero_months": 304,
+  "retained_sids": 738,
+  "unique_audit_sids": 738,
+  "start": "1980-01-01 00:00:00+00:00",
+  "end": "2025-12-01 00:00:00+00:00",
+  "split_counts": {
+    "train": 432,
+    "validation": 48,
+    "test": 72
+  },
+  "settings": {
+    "seasonal_naive": "t-12",
+    "arima": [
+      0,
+      1,
+      0
+    ],
+    "sarima": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        12
+      ]
+    ],
+    "holt_winters": [
+      0.2,
+      0.2,
+      0.3
+    ]
+  }
+}
