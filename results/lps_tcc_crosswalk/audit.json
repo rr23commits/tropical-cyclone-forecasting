@@ -1,0 +1,1581 @@
+{
+  "status": "complete",
+  "distance_threshold_degrees": 1.0,
+  "distance_threshold_km": 111.19492664455873,
+  "matching_rule": "same UTC timestamp; accept only a unique within-threshold LPS detected center that is not claimed by another unique TCC track-time position",
+  "tcc_rows_examined": 1276,
+  "zero_matches": 1275,
+  "partial_1_to_8_matches": 1,
+  "full_9_of_9_matches": 0,
+  "full_match_percent": 0.0,
+  "full_matches_by_basin": [
+    {
+      "group": "EP",
+      "rows": 439,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "NA",
+      "rows": 397,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "NI",
+      "rows": 45,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "SA",
+      "rows": 1,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "SI",
+      "rows": 124,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "SP",
+      "rows": 54,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "WP",
+      "rows": 216,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    }
+  ],
+  "full_matches_by_split": [
+    {
+      "group": "test",
+      "rows": 331,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "train",
+      "rows": 804,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "validation",
+      "rows": 141,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    }
+  ],
+  "full_matches_by_label_24h": [
+    {
+      "group": "0",
+      "rows": 437,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    },
+    {
+      "group": "1",
+      "rows": 839,
+      "full_9_step_rows": 0,
+      "full_9_step_percent": 0.0
+    }
+  ],
+  "full_matches_by_basin_year_split": [
+    {
+      "basin": "EP",
+      "year": 1982,
+      "split": "train",
+      "rows": 41,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1983,
+      "split": "train",
+      "rows": 19,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1984,
+      "split": "train",
+      "rows": 19,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1985,
+      "split": "train",
+      "rows": 14,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1986,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1987,
+      "split": "train",
+      "rows": 19,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1988,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1989,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1990,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1991,
+      "split": "train",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1992,
+      "split": "train",
+      "rows": 21,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1993,
+      "split": "train",
+      "rows": 20,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1994,
+      "split": "train",
+      "rows": 18,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1995,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1996,
+      "split": "train",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1997,
+      "split": "train",
+      "rows": 15,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1998,
+      "split": "train",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 1999,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2000,
+      "split": "train",
+      "rows": 12,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2001,
+      "split": "train",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2002,
+      "split": "train",
+      "rows": 19,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2003,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2004,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2005,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2006,
+      "split": "train",
+      "rows": 16,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2007,
+      "split": "train",
+      "rows": 22,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2008,
+      "split": "validation",
+      "rows": 20,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2009,
+      "split": "validation",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2010,
+      "split": "validation",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2011,
+      "split": "validation",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2012,
+      "split": "test",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2013,
+      "split": "test",
+      "rows": 12,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2014,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2015,
+      "split": "test",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2016,
+      "split": "test",
+      "rows": 14,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2017,
+      "split": "test",
+      "rows": 19,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "EP",
+      "year": 2018,
+      "split": "test",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1982,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1983,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1984,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1985,
+      "split": "train",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1986,
+      "split": "train",
+      "rows": 11,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1987,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1988,
+      "split": "train",
+      "rows": 12,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1989,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1990,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1991,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1992,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1993,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1994,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1995,
+      "split": "train",
+      "rows": 22,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1996,
+      "split": "train",
+      "rows": 12,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1997,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1998,
+      "split": "train",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 1999,
+      "split": "train",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2000,
+      "split": "train",
+      "rows": 16,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2001,
+      "split": "train",
+      "rows": 15,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2002,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2003,
+      "split": "train",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2004,
+      "split": "train",
+      "rows": 28,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2005,
+      "split": "train",
+      "rows": 28,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2006,
+      "split": "train",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2007,
+      "split": "train",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2008,
+      "split": "validation",
+      "rows": 25,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2009,
+      "split": "validation",
+      "rows": 11,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2010,
+      "split": "validation",
+      "rows": 20,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2012,
+      "split": "test",
+      "rows": 14,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2013,
+      "split": "test",
+      "rows": 24,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2014,
+      "split": "test",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2015,
+      "split": "test",
+      "rows": 15,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2016,
+      "split": "test",
+      "rows": 22,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2017,
+      "split": "test",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NA",
+      "year": 2018,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1983,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1985,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1987,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1988,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1989,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1992,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1994,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 1996,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2001,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2003,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2004,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2005,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2006,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2007,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2008,
+      "split": "validation",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2009,
+      "split": "validation",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2010,
+      "split": "validation",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2011,
+      "split": "validation",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2013,
+      "split": "test",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2014,
+      "split": "test",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2015,
+      "split": "test",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2016,
+      "split": "test",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "NI",
+      "year": 2017,
+      "split": "test",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SA",
+      "year": 2011,
+      "split": "validation",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1982,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1984,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1986,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1987,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1988,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1989,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1991,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1992,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1993,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1994,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1995,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1996,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1997,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1998,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 1999,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2000,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2001,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2002,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2003,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2004,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2005,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2006,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2007,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2008,
+      "split": "validation",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2009,
+      "split": "validation",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2010,
+      "split": "validation",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2011,
+      "split": "validation",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2012,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2013,
+      "split": "test",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2014,
+      "split": "test",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2015,
+      "split": "test",
+      "rows": 15,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2016,
+      "split": "test",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2017,
+      "split": "test",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SI",
+      "year": 2018,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1982,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1985,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1987,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1989,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1990,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1991,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1992,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1993,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1996,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1997,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1998,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 1999,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2000,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2001,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2002,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2003,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2007,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2009,
+      "split": "validation",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2010,
+      "split": "validation",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2014,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2015,
+      "split": "test",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2017,
+      "split": "test",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "SP",
+      "year": 2018,
+      "split": "test",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1982,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1983,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1984,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1985,
+      "split": "train",
+      "rows": 1,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1987,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1988,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1989,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1990,
+      "split": "train",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1991,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1992,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1993,
+      "split": "train",
+      "rows": 6,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1994,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1996,
+      "split": "train",
+      "rows": 2,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1997,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1998,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 1999,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2000,
+      "split": "train",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2001,
+      "split": "train",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2002,
+      "split": "train",
+      "rows": 4,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2003,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2004,
+      "split": "train",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2005,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2006,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2007,
+      "split": "train",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2008,
+      "split": "validation",
+      "rows": 3,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2009,
+      "split": "validation",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2010,
+      "split": "validation",
+      "rows": 5,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2011,
+      "split": "validation",
+      "rows": 10,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2012,
+      "split": "test",
+      "rows": 15,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2013,
+      "split": "test",
+      "rows": 8,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2014,
+      "split": "test",
+      "rows": 7,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2015,
+      "split": "test",
+      "rows": 17,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2016,
+      "split": "test",
+      "rows": 24,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2017,
+      "split": "test",
+      "rows": 9,
+      "full_9_step_rows": 0
+    },
+    {
+      "basin": "WP",
+      "year": 2018,
+      "split": "test",
+      "rows": 19,
+      "full_9_step_rows": 0
+    }
+  ],
+  "retained_subset": {
+    "full_9_of_9_rows": 0,
+    "unique_tcc_tracks": 0,
+    "years": [],
+    "split_label_counts": {}
+  },
+  "matched_timestamp_distribution": {
+    "0": 1275,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 1,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0
+  },
+  "accepted_unique_position_distance_km": {
+    "count": 5,
+    "median": 94.07417415221211,
+    "mean": 89.76395619861941,
+    "p90": 108.14118916753456,
+    "maximum": 110.26836159234752
+  },
+  "ambiguous_unique_tcc_positions": 0,
+  "matches_using_non_detected_or_interpolated_rows": 0,
+  "non_detected_lps_rows_at_required_timestamps_excluded": 848,
+  "unique_lps_track_ids_used": 1,
+  "lps_track_concentration": {
+    "full_match_rows_using_track_counts": [],
+    "largest_track_full_row_share_percent": 0.0,
+    "warning_threshold_percent": 10.0,
+    "exceeds_warning_threshold": false,
+    "note": "Overlapping TCC issue windows naturally reuse track positions; concentration is a diagnostic, not independent-sample count."
+  },
+  "predictor_availability_on_full_matches": {
+    "mean_vort_850_detectedcentre": {
+      "non_null_timestamp_references": 0,
+      "rows_with_9_of_9": 0,
+      "rows_with_0_to_9_counts": {}
+    },
+    "rh700_mean_pct_detectedcentre": {
+      "non_null_timestamp_references": 0,
+      "rows_with_9_of_9": 0,
+      "rows_with_0_to_9_counts": {}
+    },
+    "tcc_rows_complete_9_of_9_for_both": 0
+  },
+  "semester_project_screen": {
+    "criteria": "at least 100 full rows, 20 unique TCC tracks, 20 rows in each label, at least 10 of each label in every frozen split, both predictors complete on at least 90% of full rows, and no LPS track used by more than 10% of full rows",
+    "label_counts": {},
+    "full_rows_by_split_and_label": {},
+    "both_predictors_complete_rate": 0.0,
+    "adequate_by_screen": false,
+    "note": "Heuristic screening only; whole-TCC-track splits remain fixed and no random split is created."
+  },
+  "verdict": "C",
+  "representative_full_matches": [],
+  "representative_unmatched": [
+    {
+      "tcc_track_id": 100015,
+      "basin": "WP",
+      "year": 1982,
+      "issue_time_utc": "1982-03-14T03:00:00Z",
+      "current_lat": 6.2,
+      "current_lon": 152.5,
+      "linked_ibtracs_sid": "1982073N07153",
+      "first_34kt_time_utc": "1982-03-15T12:00:00Z",
+      "label_24h": 0,
+      "label_48h": "1.0",
+      "input_times_utc": "1982-03-13T03:00:00Z|1982-03-13T06:00:00Z|1982-03-13T09:00:00Z|1982-03-13T12:00:00Z|1982-03-13T15:00:00Z|1982-03-13T18:00:00Z|1982-03-13T21:00:00Z|1982-03-14T00:00:00Z|1982-03-14T03:00:00Z",
+      "split": "train",
+      "matched_timestamps": 0,
+      "full_9_step_match": false,
+      "match_class": "zero"
+    },
+    {
+      "tcc_track_id": 100017,
+      "basin": "SI",
+      "year": 1982,
+      "issue_time_utc": "1982-03-15T18:00:00Z",
+      "current_lat": -12.2,
+      "current_lon": 54.6,
+      "linked_ibtracs_sid": "1982075S12055",
+      "first_34kt_time_utc": "1982-03-16T18:00:00Z",
+      "label_24h": 1,
+      "label_48h": "1.0",
+      "input_times_utc": "1982-03-14T18:00:00Z|1982-03-14T21:00:00Z|1982-03-15T00:00:00Z|1982-03-15T03:00:00Z|1982-03-15T06:00:00Z|1982-03-15T09:00:00Z|1982-03-15T12:00:00Z|1982-03-15T15:00:00Z|1982-03-15T18:00:00Z",
+      "split": "train",
+      "matched_timestamps": 0,
+      "full_9_step_match": false,
+      "match_class": "zero"
+    },
+    {
+      "tcc_track_id": 100017,
+      "basin": "SI",
+      "year": 1982,
+      "issue_time_utc": "1982-03-15T21:00:00Z",
+      "current_lat": -12.0,
+      "current_lon": 53.2,
+      "linked_ibtracs_sid": "1982075S12055",
+      "first_34kt_time_utc": "1982-03-16T18:00:00Z",
+      "label_24h": 1,
+      "label_48h": "1.0",
+      "input_times_utc": "1982-03-14T21:00:00Z|1982-03-15T00:00:00Z|1982-03-15T03:00:00Z|1982-03-15T06:00:00Z|1982-03-15T09:00:00Z|1982-03-15T12:00:00Z|1982-03-15T15:00:00Z|1982-03-15T18:00:00Z|1982-03-15T21:00:00Z",
+      "split": "train",
+      "matched_timestamps": 0,
+      "full_9_step_match": false,
+      "match_class": "zero"
+    },
+    {
+      "tcc_track_id": 100017,
+      "basin": "SI",
+      "year": 1982,
+      "issue_time_utc": "1982-03-16T00:00:00Z",
+      "current_lat": -12.1,
+      "current_lon": 53.4,
+      "linked_ibtracs_sid": "1982075S12055",
+      "first_34kt_time_utc": "1982-03-16T18:00:00Z",
+      "label_24h": 1,
+      "label_48h": "1.0",
+      "input_times_utc": "1982-03-15T00:00:00Z|1982-03-15T03:00:00Z|1982-03-15T06:00:00Z|1982-03-15T09:00:00Z|1982-03-15T12:00:00Z|1982-03-15T15:00:00Z|1982-03-15T18:00:00Z|1982-03-15T21:00:00Z|1982-03-16T00:00:00Z",
+      "split": "train",
+      "matched_timestamps": 0,
+      "full_9_step_match": false,
+      "match_class": "zero"
+    },
+    {
+      "tcc_track_id": 100017,
+      "basin": "SI",
+      "year": 1982,
+      "issue_time_utc": "1982-03-16T03:00:00Z",
+      "current_lat": -12.3,
+      "current_lon": 53.5,
+      "linked_ibtracs_sid": "1982075S12055",
+      "first_34kt_time_utc": "1982-03-16T18:00:00Z",
+      "label_24h": 1,
+      "label_48h": "1.0",
+      "input_times_utc": "1982-03-15T03:00:00Z|1982-03-15T06:00:00Z|1982-03-15T09:00:00Z|1982-03-15T12:00:00Z|1982-03-15T15:00:00Z|1982-03-15T18:00:00Z|1982-03-15T21:00:00Z|1982-03-16T00:00:00Z|1982-03-16T03:00:00Z",
+      "split": "train",
+      "matched_timestamps": 0,
+      "full_9_step_match": false,
+      "match_class": "zero"
+    }
+  ],
+  "representative_partial_matches": [
+    {
+      "tcc_track_id": 103109,
+      "basin": "NI",
+      "year": 2013,
+      "issue_time_utc": "2013-12-04T21:00:00Z",
+      "current_lat": 8.7,
+      "current_lon": 83.8,
+      "linked_ibtracs_sid": "2013339N09084",
+      "first_34kt_time_utc": "2013-12-06T06:00:00Z",
+      "label_24h": 0,
+      "label_48h": "1.0",
+      "input_times_utc": "2013-12-03T21:00:00Z|2013-12-04T00:00:00Z|2013-12-04T03:00:00Z|2013-12-04T06:00:00Z|2013-12-04T09:00:00Z|2013-12-04T12:00:00Z|2013-12-04T15:00:00Z|2013-12-04T18:00:00Z|2013-12-04T21:00:00Z",
+      "split": "test",
+      "matched_timestamps": 5,
+      "full_9_step_match": false,
+      "match_class": "partial_1_to_8"
+    }
+  ],
+  "lps_intensity_or_category_used_as_target_or_predictor": false,
+  "tcc_labels_and_splits_modified": false
+}

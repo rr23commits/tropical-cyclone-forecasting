@@ -1,0 +1,35 @@
+{
+  "cohort_rows": 1276,
+  "row_frame_references": 11484,
+  "unique_required_timestamps": 6438,
+  "gridsat": {
+    "required_frames": 6438,
+    "matched_frames": 6438,
+    "missing_frames": 0,
+    "missing_timestamps_utc": [],
+    "complete_history_rows": 1276,
+    "incomplete_rows": 0,
+    "estimated_bytes": 247888386134,
+    "size_known_frames": 6438,
+    "channel_gaps": "none separately indexed: each listed GridSat-B1 file is the IR frame; missing files are timestamp gaps"
+  },
+  "era5": {
+    "required_timestamps": 6438,
+    "available_timestamps": 6438,
+    "missing_timestamps": [],
+    "predictors": {
+      "low_level_vorticity": "relative_vorticity@850hPa",
+      "wind_shear_850_200": "u_component_of_wind,v_component_of_wind@850,200hPa",
+      "mid_level_relative_humidity": "relative_humidity@700hPa",
+      "vertical_motion": "vertical_velocity@500hPa",
+      "sst": "sea_surface_temperature@surface"
+    },
+    "grid": "global 0.25-degree regular lat/lon",
+    "patch": "5x5 degrees (441 cells)",
+    "spatially_usable_rows": 1276,
+    "spatial_blockers": 0,
+    "estimated_bytes": 141804432
+  },
+  "row_blockers": [],
+  "decision": "GO"
+}

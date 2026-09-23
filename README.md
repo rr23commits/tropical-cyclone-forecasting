@@ -17,6 +17,12 @@ The split is chronological and storm-level: training covers 1980–2015, validat
 
 This is a track-only experiment. Environmental reanalysis and satellite imagery are not part of the final model in this repository.
 
+## Final experimental protocol
+
+The source is IBTrACS v04r01, filtered to North Atlantic `TRACK_TYPE=main` records with six-hourly, complete HURDAT-derived `USA_LAT`, `USA_LON`, and `USA_WIND` states and `USA_AGENCY=hurdat_atl`. Each direct forecast uses exactly five observations, `t-24`, `t-18`, `t-12`, `t-6`, and `t`; future track is represented as local north/east displacement and intensity as wind change. Predictions are reconstructed to latitude/longitude and scored against the target state with great-circle Haversine distance in kilometres; wind errors are reported in knots.
+
+Storms are assigned once from their first season: train through 2015, validation 2016--2019, and held-out test from 2020 onward. Thus no storm can contribute rows to more than one split. Ridge standardization and fitting use training rows only; Ridge alpha and GRU width/early stopping use validation only. The compact GRU uses seed 42 and deterministic Torch algorithms. Every model is scored on the same eligible held-out origins at each horizon.
+
 ## Models
 
 - **Persistence:** holds the current position and wind.
@@ -36,6 +42,8 @@ The table below summarizes the archived 2020–2025 test results. Each cell is *
 | +48h | 860.5 / 20.7 | 463.3 / 20.7 | 363.5 / 18.3 | 361.4 / 16.4 |
 
 The complete evaluation includes median and P95 track error, wind RMSE and bias, and storm-level bootstrap confidence intervals in `results/track_only_evaluation/model_horizon_summary.csv`. At +48h, GRU mean track error is 361.4 km and its P95 is 792.1 km, illustrating the long error tail at extended lead times.
+
+These headline means are origin-weighted. Since origins from the same storm are correlated, the report also supplies storm-macro means and 95% bootstrap intervals. The paired GRU--Ridge table resamples whole-storm mean differences on identical origins. It supports Ridge's lower +6h mean track error; later track-error intervals include zero. GRU has lower wind MAE at +12h, +24h, and +48h under the paired storm bootstrap; the +6h wind interval includes zero. These are comparisons within this fixed retrospective experiment, not operational-skill claims.
 
 ## Error analysis
 
@@ -86,6 +94,9 @@ export IBTRACS_CSV=/path/to/ibtracs.NA.list.v04r01.csv
 python3 -m src.run_baselines "$IBTRACS_CSV"
 python3 -m src.run_gru "$IBTRACS_CSV"
 python3 -m src.run_error_analysis "$IBTRACS_CSV"
+make evaluation-report
+make frontend-data
+make serve
 ```
 
 Generate the consolidated evaluation report from the archived error outputs:
@@ -118,5 +129,7 @@ Generated replay data lives under `frontend/data/` and is excluded from version 
 ## Limitations and next step
 
 These results are limited to historical-track inputs, a North Atlantic subset, four deterministic baselines, and fixed six-hour forecast origins. They do not establish performance for operational forecasting, real-time data availability, other basins, or satellite-informed models.
+
+The separate Genesis ERA5 extension is incomplete: 899 of 2,792 immutable requests are validated, but only 374 candidate histories from 207 storms have complete pressure/SST coverage, with 370 training candidates, four validation candidates, and no test candidates. It is not used for feature extraction, modelling, or any reported predictive result. Acquisition and the raw journal remain outside this final experiment.
 
 The planned next research step is a separately scoped TCIR satellite ablation: first establish reliable track-to-image alignment and a reproducible image-only contribution, then compare it against this track-only reference without changing the held-out evaluation protocol.

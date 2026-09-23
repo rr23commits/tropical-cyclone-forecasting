@@ -263,6 +263,19 @@ class Era5ManifestTests(unittest.TestCase):
             self.assertEqual(retry_client.remote.request_id, "job-1")
             self.assertEqual(retry_client.retrieve_calls, 0)
 
+    def test_phase4_ambiguous_new_submission_still_stops_runner(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            spec = FileSpec("humidity_700", 1980, 11, ("01",))
+            client = _Client(_Remote())
+            with patch("src.acquire_era5._cds_client", return_value=client):
+                with self.assertRaisesRegex(RuntimeError, "ambiguous CDS submission"):
+                    _test_acquire(root, [spec])
+            entry = _load_journal(root)[spec.filename]
+            self.assertIn("submission_error", entry)
+            self.assertNotIn("jobs", entry)
+            self.assertEqual(client.retrieve_calls, 1)
+
     def test_ambiguous_submission_single_exact_match_recovers(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

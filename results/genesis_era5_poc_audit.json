@@ -1,0 +1,57 @@
+{
+  "status": "NO_GO",
+  "scope": "one candidate issue time only; stop on first required-field read failure",
+  "cohort_rows": 1276,
+  "issue_rows_aligned_to_pressure_store_6hour_grid": 384,
+  "candidate": {
+    "tcc_track_id": 100017,
+    "issue_time_utc": "1982-03-15T18:00:00Z",
+    "tcc_latitude": -12.2,
+    "tcc_longitude": 54.6,
+    "split": "train",
+    "label_24h": 1,
+    "label_used_as_feature": false,
+    "pressure_source_time_utc": "1982-03-15T18:00:00Z",
+    "pressure_source_latitude": -12.25,
+    "pressure_source_longitude": 54.5
+  },
+  "sources": {
+    "pressure_levels": {
+      "url": "https://arco.datastores.ecmwf.int/cadl-arco-geo-048/arco/reanalysis_era5_pressure_levels/pl/geoChunked.zarr",
+      "frequency": "6-hourly at 00/06/12/18 UTC",
+      "grid_degrees": 0.25,
+      "variables": {"u": "m s**-1", "v": "m s**-1", "r": "%", "w": "Pa s**-1"},
+      "missing_encoding": "NaN fill value",
+      "chunk_shape": [16896, 1, 8, 8],
+      "first_required_read": {
+        "variable": "u at 850 hPa",
+        "zarr_chunk_key": "u/3.2.38.117",
+        "head_status": 200,
+        "head_content_length_bytes": 2548510,
+        "get_result": "20.78-second timeout; xarray/Zarr returned NaN fill value",
+        "valid_value_received": false
+      }
+    },
+    "surface": {
+      "url": "https://arco.datastores.ecmwf.int/cadl-arco-geo-002/arco/reanalysis_era5_single_levels/sfc/geoChunked.zarr",
+      "variable": "sst",
+      "units": "K",
+      "missing_encoding": "NaN fill value",
+      "chunk_shape": [67584, 4, 4],
+      "content_updated": "daily despite hourly time coordinates",
+      "value_chunk_requested": false
+    }
+  },
+  "transfer": {
+    "completed_response_body_bytes_in_instrumented_reads": 105187,
+    "pressure_metadata_and_coordinate_bodies_bytes": 58880,
+    "surface_metadata_body_bytes": 46307,
+    "timed_out_chunk_body_bytes": null,
+    "timed_out_chunk_body_note": "response body did not complete; the client did not expose partial body bytes",
+    "cumulative_bytes_across_all_exploratory_attempts": null,
+    "cumulative_bytes_note": "an earlier interrupted probe was not fully metered"
+  },
+  "feature_table": null,
+  "valid_environment_values": 0,
+  "decision": "Stop. Do not create an extractor or retry through an alternate client; the first required value read was not reliable."
+}

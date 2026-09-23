@@ -1,0 +1,13 @@
+{
+  "cohort_rows": 1276,
+  "row_time_references": 11484,
+  "unique_required_timestamps": 6438,
+  "predictors": ["relative_vorticity_850hpa_from_u_v", "wind_shear_850_200hpa", "relative_humidity_700hpa_from_temperature_specific_humidity", "vertical_velocity_500hpa", "sea_surface_temperature"],
+  "cds_pressure_arco": {"temporal_resolution": "6-hourly", "result": "incompatible with frozen 3-hour history"},
+  "hourly_arco_distribution": {"layout": "one global/all-37-level pressure-variable chunk per hourly timestamp", "representative_u_chunk_bytes": 117354372, "representative_sst_chunk_bytes": 1334221, "result": "point selection cannot reduce transfer; do not acquire"},
+  "source_values_downloaded": false,
+  "feature_dataset_created": false,
+  "final_dataset_bytes": 0,
+  "decision": "NO-GO",
+  "blocker": "No verified hourly, location-chunked ERA5 access path; available exact-hourly path would require multi-terabyte global chunks."
+}
