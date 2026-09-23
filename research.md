@@ -106,6 +106,12 @@ Our current direction is to:
 
 The completed experiment fixes these choices: North Atlantic HURDAT-aligned IBTrACS, five six-hour history states, +6/+12/+24/+48-hour direct forecasts, a compact GRU plus three baselines, and whole-storm chronological splits. `design.md` records the final scope.
 
+## Final submission status
+
+The final reported result is the track-only experiment only. It evaluates Persistence, Constant Motion, Ridge, and a seed-42 compact GRU on identical held-out North Atlantic storm origins from 2020--2025. Mean errors are origin-weighted; the report additionally provides storm-macro means, storm-clustered bootstrap intervals, and a paired whole-storm GRU--Ridge comparison. No random row split, environmental feature, satellite image, or externally generated forecast enters these results.
+
+The separate Genesis ERA5 acquisition is incomplete (899/2,792 validated requests). Its complete subset has no chronological test candidates, so it is future work and must not be presented as an environmental ablation or a contribution to the reported forecast skill.
+
 ## 6. Questions to Resolve
 
 - Which basin offers the best balance of data quality, relevance and manageable scope?
