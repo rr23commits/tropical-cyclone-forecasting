@@ -8,6 +8,7 @@ import os
 import tempfile
 from collections import defaultdict
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.request import urlopen
 
 import numpy as np
@@ -102,15 +103,25 @@ def main() -> None:
     groups = list(pending.groupby("issue_time", sort=True))
     if args.max_source_files: groups = groups[:args.max_source_files]
     write_header = not manifest_path.exists()
-    downloaded = retained = success = excluded = 0
+    downloaded = retained = success = excluded = missing_source = 0
     for number, (stamp, rows) in enumerate(groups, 1):
             stamp = pd.Timestamp(stamp); source = None
             print(f"[{number}/{len(groups)}] {stamp} ({len(rows)} crops)", flush=True)
             try:
-                with tempfile.NamedTemporaryFile(suffix=".nc", delete=False) as handle:
-                    source = Path(handle.name)
-                    with urlopen(source_url(stamp), timeout=600) as response:
-                        while block := response.read(1024 * 1024): handle.write(block)
+                try:
+                    with tempfile.NamedTemporaryFile(suffix=".nc", delete=False) as handle:
+                        source = Path(handle.name)
+                        with urlopen(source_url(stamp), timeout=600) as response:
+                            while block := response.read(1024 * 1024): handle.write(block)
+                except HTTPError as error:
+                    if error.code != 404:
+                        raise
+                    records = [{**row.to_dict(), "issue_time": stamp.isoformat(), "status": "missing_source", "exclusion_reason": "http_404", "crop_path": "", "height": 0, "width": 0, "valid_fraction": "", "source_file": source_name(stamp), "source_url": source_url(stamp), "source_time_utc": stamp.isoformat(), "download_bytes": 0, "saved_crop_bytes": 0, "decode": ""} for _, row in rows.iterrows()]
+                    with manifest_path.open("a", newline="") as handle:
+                        writer = csv.DictWriter(handle, fieldnames=MANIFEST_FIELDS); writer.writeheader() if write_header else None; writer.writerows(records)
+                    write_header = False
+                    missing_source += len(records)
+                    continue
                 size = source.stat().st_size; downloaded += size
                 field, lat, lon = load_field(source, stamp)
                 records = []
@@ -128,10 +139,10 @@ def main() -> None:
             finally:
                 if source is not None: source.unlink(missing_ok=True)
     frame = pd.read_csv(manifest_path) if manifest_path.exists() else pd.DataFrame()
-    summary = {"eligible_origins": len(fixed), "completed_origins": len(frame), "remaining_origins": len(fixed)-len(frame), "this_run_saved": success, "this_run_excluded": excluded,
+    summary = {"eligible_origins": len(fixed), "completed_origins": len(frame), "remaining_origins": len(fixed)-len(frame), "this_run_saved": success, "this_run_excluded": excluded, "this_run_missing_source": missing_source,
                "this_run_download_bytes": downloaded, "this_run_retained_bytes": retained,
                "minimum_valid_fraction": None if frame.empty else float(frame.valid_fraction.min()), "median_valid_fraction": None if frame.empty else float(frame.valid_fraction.median()),
-               "counts_by_split": fixed.groupby("split").size().to_dict()}
+               "manifest_status_counts": {} if frame.empty else frame.status.value_counts().to_dict(), "counts_by_split": fixed.groupby("split").size().to_dict()}
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary, indent=2))
 
