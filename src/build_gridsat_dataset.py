@@ -20,7 +20,8 @@ from src.ibtracs import build_forecast_samples, filter_north_atlantic, load_ibtr
 HORIZONS = (6, 12, 24, 48)
 HALF_CELLS = 100
 FIELD_SIZE = 201
-MANIFEST_FIELDS = ("SID", "season", "split", "issue_time", "issue_lat", "issue_lon", "horizons", "crop_path", "height", "width", "valid_fraction", "source_file", "source_url", "source_time_utc", "download_bytes", "saved_crop_bytes", "decode")
+MANIFEST_FIELDS = ("SID", "season", "split", "issue_time", "issue_lat", "issue_lon", "horizons", "status", "exclusion_reason", "crop_path", "height", "width", "valid_fraction", "source_file", "source_url", "source_time_utc", "download_bytes", "saved_crop_bytes", "decode")
+MIN_VALID_FRACTION = 0.90
 
 
 def origins(path: Path) -> pd.DataFrame:
@@ -62,18 +63,19 @@ def write_crop(field: np.ndarray, lat: np.ndarray, lon: np.ndarray, row: pd.Seri
     i = int(np.abs(lat - row.issue_lat).argmin())
     j = int(np.abs(((lon - row.issue_lon + 180) % 360) - 180).argmin())
     if field.ndim != 2 or i < HALF_CELLS or j < HALF_CELLS or i + HALF_CELLS >= len(lat) or j + HALF_CELLS >= len(lon):
-        raise ValueError(f"invalid crop geometry for {row.SID} {row.issue_time}")
+        return {"status": "excluded", "exclusion_reason": "invalid_crop_geometry", "height": 0, "width": 0, "valid_fraction": 0.0, "saved_crop_bytes": 0}
     crop = field[i-HALF_CELLS:i+HALF_CELLS+1, j-HALF_CELLS:j+HALF_CELLS+1]
     if crop.shape != (FIELD_SIZE, FIELD_SIZE):
-        raise ValueError(f"unexpected crop dimensions {crop.shape}")
+        return {"status": "excluded", "exclusion_reason": f"unexpected_dimensions_{crop.shape}", "height": int(crop.shape[0]), "width": int(crop.shape[1]), "valid_fraction": 0.0, "saved_crop_bytes": 0}
     valid = np.isfinite(crop)
-    if not valid.any():
-        raise ValueError("crop is entirely invalid")
+    fraction = float(valid.mean())
+    if fraction < MIN_VALID_FRACTION:
+        return {"status": "excluded", "exclusion_reason": f"valid_fraction_below_{MIN_VALID_FRACTION:.2f}", "height": FIELD_SIZE, "width": FIELD_SIZE, "valid_fraction": fraction, "saved_crop_bytes": 0}
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".tmp.npz")
     np.savez_compressed(temporary, image=crop.astype("float16"))
     os.replace(temporary, path)
-    return {"height": FIELD_SIZE, "width": FIELD_SIZE, "valid_fraction": float(valid.mean()), "saved_crop_bytes": path.stat().st_size}
+    return {"status": "saved", "exclusion_reason": "", "height": FIELD_SIZE, "width": FIELD_SIZE, "valid_fraction": fraction, "saved_crop_bytes": path.stat().st_size}
 
 
 def completed(manifest: Path) -> set[tuple[str, str]]:
@@ -100,9 +102,8 @@ def main() -> None:
     groups = list(pending.groupby("issue_time", sort=True))
     if args.max_source_files: groups = groups[:args.max_source_files]
     write_header = not manifest_path.exists()
-    downloaded = retained = success = 0
-    try:
-        for number, (stamp, rows) in enumerate(groups, 1):
+    downloaded = retained = success = excluded = 0
+    for number, (stamp, rows) in enumerate(groups, 1):
             stamp = pd.Timestamp(stamp); source = None
             print(f"[{number}/{len(groups)}] {stamp} ({len(rows)} crops)", flush=True)
             try:
@@ -115,8 +116,10 @@ def main() -> None:
                 records = []
                 for _, row in rows.iterrows():
                     path = args.output / "crops" / crop_name(row)
-                    stats = write_crop(field, lat, lon, row, path); retained += stats["saved_crop_bytes"]; success += 1
-                    records.append({**row.to_dict(), "issue_time": stamp.isoformat(), "crop_path": str(path.relative_to(args.output)),
+                    stats = write_crop(field, lat, lon, row, path)
+                    if stats["status"] == "saved": retained += stats["saved_crop_bytes"]; success += 1
+                    else: excluded += 1
+                    records.append({**row.to_dict(), "issue_time": stamp.isoformat(), "crop_path": str(path.relative_to(args.output)) if stats["status"] == "saved" else "",
                                     "source_file": source_name(stamp), "source_url": source_url(stamp), "source_time_utc": stamp.isoformat(),
                                     "download_bytes": size, "decode": "int16*0.01+200 K; fill only; physical 140-375 K", **stats})
                 with manifest_path.open("a", newline="") as handle:
@@ -124,11 +127,8 @@ def main() -> None:
                 write_header = False
             finally:
                 if source is not None: source.unlink(missing_ok=True)
-    except Exception as exc:
-        failures_path.write_text(json.dumps({"error_type": type(exc).__name__, "error": str(exc)}, indent=2) + "\n")
-        raise
     frame = pd.read_csv(manifest_path) if manifest_path.exists() else pd.DataFrame()
-    summary = {"eligible_origins": len(fixed), "completed_origins": len(frame), "remaining_origins": len(fixed)-len(frame), "this_run_success": success,
+    summary = {"eligible_origins": len(fixed), "completed_origins": len(frame), "remaining_origins": len(fixed)-len(frame), "this_run_saved": success, "this_run_excluded": excluded,
                "this_run_download_bytes": downloaded, "this_run_retained_bytes": retained,
                "minimum_valid_fraction": None if frame.empty else float(frame.valid_fraction.min()), "median_valid_fraction": None if frame.empty else float(frame.valid_fraction.median()),
                "counts_by_split": fixed.groupby("split").size().to_dict()}
