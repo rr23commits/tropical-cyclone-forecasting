@@ -78,7 +78,15 @@ def retrieve_crop(row: pd.Series, crop_path: Path) -> dict[str, object]:
                     handle.write(block)
         download_bytes = source_path.stat().st_size
         with Dataset(source_path) as data:
-            full = np.ma.filled(data.variables["irwin_cdr"][:], np.nan).astype("float32").squeeze()
+            irwin = data.variables["irwin_cdr"]
+            # GridSat's valid_range is expressed in Kelvin but is attached to a
+            # packed int16 variable. netCDF4 otherwise applies it to raw values.
+            irwin.set_auto_maskandscale(False)
+            raw = np.asarray(irwin[:]).squeeze()
+            fill_values = {getattr(irwin, "_FillValue", -31999), getattr(irwin, "missing_value", -31999)}
+            missing = np.isin(raw, list(fill_values))
+            full = raw.astype("float32") * float(irwin.scale_factor) + float(irwin.add_offset)
+            full[missing | (full < 140.0) | (full > 375.0)] = np.nan
             lat = np.asarray(data.variables["lat"][:], dtype="float32")
             lon = np.asarray(data.variables["lon"][:], dtype="float32")
             time_var = data.variables["time"]
