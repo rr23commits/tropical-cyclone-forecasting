@@ -31,9 +31,13 @@ class GenesisGridSatAcquireTests(unittest.TestCase):
         self.assertEqual(records.source_timestamp_utc.nunique(), 1)
 
         def save_crop(field, lat, lon, row, path):
+            if row.issue_lat == 11.0:
+                return {"status": "excluded", "exclusion_reason": "invalid_crop_geometry", "height": 0,
+                        "width": 0, "valid_fraction": 0.0, "saved_crop_bytes": 0}
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"crop")
-            return {"status": "saved", "height": 201, "width": 201, "valid_fraction": 1.0, "saved_crop_bytes": 4}
+            return {"status": "saved", "exclusion_reason": "", "height": 201, "width": 201,
+                    "valid_fraction": 1.0, "saved_crop_bytes": 4}
 
         response = MagicMock()
         response.read.side_effect = [b"source", b""]
@@ -47,10 +51,13 @@ class GenesisGridSatAcquireTests(unittest.TestCase):
             root = Path(directory) / "crops"
             attempts = Path(directory) / "state" / "acquisition.csv"
             summary = acquisition.acquire(records, root, attempts, max_source_files=0)
-            self.assertEqual(summary, {"unique_source_timestamps": 1, "saved": 2, "excluded": 0, "failed": 0})
+            self.assertEqual(summary, {"unique_source_timestamps": 1, "saved": 1, "excluded": 1, "failed": 0})
             self.assertEqual(opener.call_count, 1)
             self.assertEqual(load.call_count, 1)
             self.assertEqual(crop.call_count, 2)
+            saved = pd.read_csv(attempts)
+            self.assertEqual(saved.columns.tolist(), list(acquisition.ATTEMPT_FIELDS))
+            self.assertEqual(saved.loc[saved.status.eq("excluded"), "error"].item(), "invalid_crop_geometry")
 
             again = acquisition.acquire(records, root, attempts, max_source_files=0)
             self.assertEqual(again["unique_source_timestamps"], 0)

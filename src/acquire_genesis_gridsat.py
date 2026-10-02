@@ -146,8 +146,10 @@ def acquire(records: pd.DataFrame, crop_root: Path, attempt_manifest: Path, max_
                     status = str(stats["status"])
                     summary[status] += 1
                     _append(attempt_manifest, [{
-                        **{name: getattr(row, name) for name in REQUEST_FIELDS}, "status": status, "error": "",
-                        "download_bytes": download_bytes, **stats,
+                        **{name: getattr(row, name) for name in REQUEST_FIELDS}, "status": status,
+                        "error": str(stats.get("exclusion_reason", "")), "height": stats["height"],
+                        "width": stats["width"], "valid_fraction": stats["valid_fraction"],
+                        "download_bytes": download_bytes, "saved_crop_bytes": stats["saved_crop_bytes"],
                     }])
                 except Exception as error:
                     summary["failed"] += 1
