@@ -10,7 +10,7 @@ import pandas as pd
 import torch
 from torch import nn
 
-from .gridsat_gru import IMAGE_SIZE, load_crop
+from .gridsat_gru import IMAGE_SIZE, ImageScaler, load_crop
 
 
 HISTORY_LENGTH = 9
@@ -26,6 +26,25 @@ class GenesisGridSatSamples:
 
     candidates: pd.DataFrame
     image_paths: tuple[tuple[Path, ...], ...]
+
+
+def subset_genesis_samples(samples: GenesisGridSatSamples, indices: np.ndarray) -> GenesisGridSatSamples:
+    """Subset candidate rows and image histories without breaking their alignment."""
+    return GenesisGridSatSamples(
+        samples.candidates.iloc[indices].reset_index(drop=True),
+        tuple(samples.image_paths[index] for index in indices),
+    )
+
+
+def split_genesis_samples(samples: GenesisGridSatSamples) -> dict[str, GenesisGridSatSamples]:
+    """Partition complete histories by their pre-frozen candidate split labels."""
+    labels = samples.candidates["split"]
+    if set(labels) - {"train", "validation", "test"}:
+        raise ValueError("Genesis candidates contain an unknown split")
+    return {
+        split: subset_genesis_samples(samples, np.flatnonzero(labels.eq(split).to_numpy()))
+        for split in ("train", "validation", "test")
+    }
 
 
 def _times(value: str) -> tuple[pd.Timestamp, ...]:
@@ -85,6 +104,26 @@ def load_genesis_images(samples: GenesisGridSatSamples, limit: int | None = None
         raise ValueError("no complete Genesis candidates available")
     images = np.stack([[np.nan_to_num(load_crop(path), nan=0.0) for path in history] for history in histories])
     return torch.from_numpy(images[:, :, None].astype(np.float32))
+
+
+class GenesisImageDataset(torch.utils.data.Dataset[tuple[torch.Tensor, torch.Tensor]]):
+    """Lazy labeled image histories; scaling, when used, must be fitted on train only."""
+
+    def __init__(self, samples: GenesisGridSatSamples, scaler: ImageScaler | None = None) -> None:
+        self.samples = samples
+        self.scaler = scaler
+
+    def __len__(self) -> int:
+        return len(self.samples.candidates)
+
+    def __getitem__(self, index: int) -> tuple[torch.Tensor, torch.Tensor]:
+        images = [load_crop(path) for path in self.samples.image_paths[index]]
+        if self.scaler is not None:
+            images = [self.scaler.transform(image) for image in images]
+        else:
+            images = [np.nan_to_num(image, nan=0.0) for image in images]
+        label = float(self.samples.candidates.label_24h.iloc[index])
+        return torch.from_numpy(np.stack(images)[:, None].astype(np.float32)), torch.tensor(label)
 
 
 class GenesisCNNGRU(nn.Module):

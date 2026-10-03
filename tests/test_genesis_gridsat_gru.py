@@ -13,7 +13,8 @@ from torch.nn import functional as F
 
 from src.genesis_gridsat_gru import (
     DEFAULT_CANDIDATE_MANIFEST, DEFAULT_CROP_ROOT, DEFAULT_STATE_DIR,
-    GenesisCNNGRU, REPOSITORY_ROOT, _times, load_genesis_images, load_genesis_samples,
+    GenesisCNNGRU, GenesisGridSatSamples, GenesisImageDataset, REPOSITORY_ROOT,
+    _times, load_genesis_images, load_genesis_samples, split_genesis_samples,
 )
 
 
@@ -22,6 +23,24 @@ class GenesisGridSatGRUTests(unittest.TestCase):
         self.assertEqual(DEFAULT_CANDIDATE_MANIFEST, REPOSITORY_ROOT / "results/genesis_candidate_manifest.csv")
         self.assertEqual(DEFAULT_STATE_DIR, REPOSITORY_ROOT.parent / "genesis_gridsat_state")
         self.assertEqual(DEFAULT_CROP_ROOT, REPOSITORY_ROOT.parent / "genesis_gridsat_crops")
+
+    def test_split_isolation_and_dataset_construction(self) -> None:
+        samples = GenesisGridSatSamples(
+            pd.DataFrame({"split": ["train", "validation", "test"], "label_24h": [0, 1, 0]}),
+            ((Path("train.npz"),), (Path("validation.npz"),), (Path("test.npz"),)),
+        )
+        groups = split_genesis_samples(samples)
+        self.assertEqual({split: group.candidates.split.tolist() for split, group in groups.items()},
+                         {"train": ["train"], "validation": ["validation"], "test": ["test"]})
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "crop.npz"
+            np.savez(path, image=np.zeros((201, 201), dtype=np.float32))
+            dataset = GenesisImageDataset(GenesisGridSatSamples(
+                pd.DataFrame({"split": ["train"], "label_24h": [1]}), ((path,) * 9,)
+            ))
+            images, label = dataset[0]
+            self.assertEqual(tuple(images.shape), (9, 1, 201, 201))
+            self.assertEqual(label.item(), 1.0)
 
     def test_parser_and_adapter_handle_real_format_full_cohort(self) -> None:
         value = "|".join(f"1982-01-{day:02d}T{hour:02d}:00:00Z" for day, hour in ((2, 18), (2, 21), (3, 0), (3, 3), (3, 6), (3, 9), (3, 12), (3, 15), (3, 18)))
