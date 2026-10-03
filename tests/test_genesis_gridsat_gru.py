@@ -11,10 +11,18 @@ import pandas as pd
 import torch
 from torch.nn import functional as F
 
-from src.genesis_gridsat_gru import GenesisCNNGRU, _times, load_genesis_images, load_genesis_samples
+from src.genesis_gridsat_gru import (
+    DEFAULT_CANDIDATE_MANIFEST, DEFAULT_CROP_ROOT, DEFAULT_STATE_DIR,
+    GenesisCNNGRU, REPOSITORY_ROOT, _times, load_genesis_images, load_genesis_samples,
+)
 
 
 class GenesisGridSatGRUTests(unittest.TestCase):
+    def test_defaults_resolve_repo_cohort_and_sibling_external_data(self) -> None:
+        self.assertEqual(DEFAULT_CANDIDATE_MANIFEST, REPOSITORY_ROOT / "results/genesis_candidate_manifest.csv")
+        self.assertEqual(DEFAULT_STATE_DIR, REPOSITORY_ROOT.parent / "genesis_gridsat_state")
+        self.assertEqual(DEFAULT_CROP_ROOT, REPOSITORY_ROOT.parent / "genesis_gridsat_crops")
+
     def test_parser_and_adapter_handle_real_format_full_cohort(self) -> None:
         value = "|".join(f"1982-01-{day:02d}T{hour:02d}:00:00Z" for day, hour in ((2, 18), (2, 21), (3, 0), (3, 3), (3, 6), (3, 9), (3, 12), (3, 15), (3, 18)))
         self.assertEqual(_times(value), tuple(pd.Timestamp(stamp, tz="UTC") for stamp in value.split("|")))

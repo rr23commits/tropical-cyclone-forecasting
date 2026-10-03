@@ -9,14 +9,17 @@ from pathlib import Path
 import torch
 from torch.nn import functional as F
 
-from src.genesis_gridsat_gru import GenesisCNNGRU, load_genesis_images, load_genesis_samples
+from src.genesis_gridsat_gru import (
+    DEFAULT_CANDIDATE_MANIFEST, DEFAULT_CROP_ROOT, DEFAULT_STATE_DIR,
+    GenesisCNNGRU, load_genesis_images, load_genesis_samples,
+)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", type=Path, default=Path("results/genesis_candidate_manifest.csv"))
-    parser.add_argument("--state-dir", type=Path, default=Path("genesis_gridsat_state"))
-    parser.add_argument("--crop-root", type=Path, default=Path("genesis_gridsat_crops"))
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_CANDIDATE_MANIFEST)
+    parser.add_argument("--state-dir", type=Path, default=DEFAULT_STATE_DIR)
+    parser.add_argument("--crop-root", type=Path, default=DEFAULT_CROP_ROOT)
     parser.add_argument("--limit", type=int, default=2)
     args = parser.parse_args()
     if not 1 <= args.limit <= 4:

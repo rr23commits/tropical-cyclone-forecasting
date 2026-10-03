@@ -14,6 +14,10 @@ from .gridsat_gru import IMAGE_SIZE, load_crop
 
 
 HISTORY_LENGTH = 9
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CANDIDATE_MANIFEST = REPOSITORY_ROOT / "results/genesis_candidate_manifest.csv"
+DEFAULT_STATE_DIR = REPOSITORY_ROOT.parent / "genesis_gridsat_state"
+DEFAULT_CROP_ROOT = REPOSITORY_ROOT.parent / "genesis_gridsat_crops"
 
 
 @dataclass(frozen=True)
@@ -32,9 +36,9 @@ def _times(value: str) -> tuple[pd.Timestamp, ...]:
 
 
 def load_genesis_samples(
-    candidate_manifest: Path = Path("results/genesis_candidate_manifest.csv"),
-    state_dir: Path = Path("genesis_gridsat_state"),
-    crop_root: Path = Path("genesis_gridsat_crops"),
+    candidate_manifest: Path = DEFAULT_CANDIDATE_MANIFEST,
+    state_dir: Path = DEFAULT_STATE_DIR,
+    crop_root: Path = DEFAULT_CROP_ROOT,
 ) -> GenesisGridSatSamples:
     """Load only labeled candidates with nine latest-status saved crops, without writes."""
     candidates = pd.read_csv(candidate_manifest, dtype={"tcc_track_id": str})
