@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TROP-CYC / Research Replay</title>
+    <title>TROP-CYC / Spatial Trajectory</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,14 +11,14 @@
     <template id="ui">
       <nav class="research-nav" aria-label="Research views"><a class="research-nav-current" href="/index.html">SPATIAL TRAJECTORY</a><a class="research-nav-link" href="/monthly.html">MONTHLY ACTIVITY ↗</a><a class="research-nav-link" href="/genesis.html">GENESIS IMAGERY ↗</a></nav>
       <section class="map-wrap">
-        <svg id="map" role="img" aria-label="Storm replay map"></svg>
+        <svg id="map" role="img" aria-label="Held-out storm-track replay map"></svg>
         <div id="tooltip" class="tooltip" hidden></div>
         <div class="map-key"><span><i class="dot observed"></i>Observed IBTrACS</span><span><i id="forecastKey" class="line forecast"></i><span id="forecastKeyText">GRU</span> forecast</span><span><i class="line actual"></i>Actual future</span></div>
         <div class="map-tools"><button id="zoomIn" title="Zoom in">+</button><button id="zoomOut" title="Zoom out">−</button><button id="fitMap" title="Fit selected storm">⊙</button></div>
       </section>
       <aside id="left" class="panel left-panel">
         <button class="panel-toggle" data-panel="left" aria-label="Toggle storm panel">‹</button>
-        <div class="panel-kicker"><b class="app-mark">TROP-CYC</b> ◆ STORM STATUS <span>HELD-OUT TEST</span></div>
+        <div class="panel-kicker"><b class="app-mark">TROP-CYC</b> ◆ STORM-TRACK FORECASTING <span>HELD-OUT TEST</span></div>
         <label class="select-label">STORM / SEASON<select id="stormSelect"></select></label>
         <h1 id="stormTitle"></h1>
         <p id="stormMeta" class="muted"></p>
@@ -31,7 +31,7 @@
         <div class="section-title">TRACK DISPLAY</div>
         <label class="check"><input id="showObserved" type="checkbox" checked /> Observed track <em>IBTrACS</em></label>
         <label class="check"><input id="showActual" type="checkbox" checked /> Actual future <em>verification</em></label>
-        <p class="fineprint">Historical IBTrACS observations and frozen held-out predictions from the model evaluation.</p>
+        <p class="fineprint">Historical held-out storm replay with archived forecasts and observed verification.</p>
       </aside>
       <aside id="right" class="panel right-panel">
         <div class="panel-kicker">◉ FORECAST INTELLIGENCE <span class="ready">REPLAY READY</span></div>
@@ -51,7 +51,7 @@
         <label class="speed">SPEED <select id="speed"><option value="1100">1×</option><option value="550" selected>2×</option><option value="220">5×</option></select></label>
         <div class="time-readout"><small>TIMESTAMP (T=0)</small><b id="timelineTime"></b></div>
         <input id="scrubber" type="range" min="0" value="0" />
-        <div class="replay-label"><small>MODE: HISTORICAL REPLAY // HELD-OUT</small><b>RESEARCH REPLAY // EVALUATION</b></div>
+        <div class="replay-label"><small>MODE: STORM-TRACK REPLAY // HELD-OUT</small><b>HISTORICAL REPLAY // EVALUATION</b></div>
         <button id="fullCanvas" class="canvas">⛶ FULL CANVAS</button>
       </footer>
     </template>

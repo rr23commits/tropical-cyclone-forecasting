@@ -25,4 +25,4 @@ The separate presentation page is `frontend/monthly.html`; regenerate its derive
 
 ## Historical or separate-scope artifacts
 
-`phase2_baselines.csv`, `phase3_gru_comparison.csv`, `phase4_history_ablation.csv`, and `track_only_track_error.svg` are retained historical phase outputs; they are not the final report table. `genesis_*`, `gridsat_s3_index/`, and `lps_tcc_crosswalk/` are feasibility/acquisition artifacts for the incomplete extension and are not predictive results.
+`phase2_baselines.csv`, `phase3_gru_comparison.csv`, `phase4_history_ablation.csv`, and `track_only_track_error.svg` are retained historical phase outputs; they are not the final report table. `genesis_*`, `gridsat_s3_index/`, and `lps_tcc_crosswalk/` document the separate Genesis data-preparation and acquisition path. The completed exploratory Genesis CNN–GRU result is documented in the root README and `frontend/data/genesis.json`: test accuracy 0.611, F1 0.733, and ROC-AUC 0.562; the majority baseline has higher accuracy (0.675) and F1 (0.806).
