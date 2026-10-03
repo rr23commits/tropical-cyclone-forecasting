@@ -11,10 +11,24 @@ import pandas as pd
 import torch
 from torch.nn import functional as F
 
-from src.genesis_gridsat_gru import GenesisCNNGRU, load_genesis_images, load_genesis_samples
+from src.genesis_gridsat_gru import GenesisCNNGRU, _times, load_genesis_images, load_genesis_samples
 
 
 class GenesisGridSatGRUTests(unittest.TestCase):
+    def test_parser_and_adapter_handle_real_format_full_cohort(self) -> None:
+        value = "|".join(f"1982-01-{day:02d}T{hour:02d}:00:00Z" for day, hour in ((2, 18), (2, 21), (3, 0), (3, 3), (3, 6), (3, 9), (3, 12), (3, 15), (3, 18)))
+        self.assertEqual(_times(value), tuple(pd.Timestamp(stamp, tz="UTC") for stamp in value.split("|")))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            pd.DataFrame({"tcc_track_id": range(1276), "input_times_utc": [value] * 1276,
+                          "label_24h": [0] * 1276, "split": ["train"] * 1276}).to_csv(root / "candidates.csv", index=False)
+            state = root / "state"
+            state.mkdir()
+            pd.DataFrame(columns=["tcc_track_id", "time_utc", "status", "crop_path"]).to_csv(
+                state / "genesis_gridsat_acquisition_manifest.csv", index=False
+            )
+            self.assertEqual(len(load_genesis_samples(root / "candidates.csv", state, root / "crops").candidates), 0)
+
     def test_adapter_uses_latest_saved_status_for_all_nine_images(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -25,7 +25,7 @@ class GenesisGridSatSamples:
 
 
 def _times(value: str) -> tuple[pd.Timestamp, ...]:
-    times = tuple(pd.to_datetime(str(value).split("|"), utc=True, errors="raise"))
+    times = tuple(pd.Timestamp(stamp, tz="UTC") for stamp in str(value).split("|"))
     if len(times) != HISTORY_LENGTH:
         raise ValueError(f"Genesis candidate must have {HISTORY_LENGTH} input times")
     return times
