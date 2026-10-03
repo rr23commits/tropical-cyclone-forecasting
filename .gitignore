@@ -1,5 +1,6 @@
 /data/raw/era5/
-/frontend/data/
+/frontend/data/*
+!/frontend/data/genesis.json
 
 __pycache__/
 *.py[cod]

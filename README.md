@@ -106,12 +106,13 @@ Metrics are monthly-count errors over the 72-month test period. The ensemble wei
 
 ## Interactive frontend
 
-The static frontend has two linked views:
+The static frontend has three linked views:
 
 - `frontend/index.html`: historical Spatial Trajectory replay of archived storm forecasts. It is labelled non-operational and does not run live inference.
 - `frontend/monthly.html`: Monthly Activity research presentation with the full count series, a test-period-focused forecast view, month-of-year seasonality, decomposition, model comparison, and interactive hover/crosshair tooltips.
+- `frontend/genesis.html`: exploratory static viewer of selected Genesis CNN-GRU input histories, with nine archived GridSat IR frames per complete candidate. It performs no inference.
 
-The Monthly Activity page reads `frontend/data/monthly.json`, which is generated from the existing monthly experiment artifacts. The Spatial Trajectory map and the Monthly Activity page do not share model results or evaluation logic.
+The Monthly Activity page reads `frontend/data/monthly.json`, which is generated from the existing monthly experiment artifacts. The Genesis Imagery page reads its separate prepared static export, `frontend/data/genesis.json` and `frontend/assets/genesis/`. None of the three pages share model results or evaluation logic.
 
 ## Repository layout
 

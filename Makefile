@@ -1,3 +1,5 @@
+PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
+
 .PHONY: frontend-data monthly-frontend-data evaluation-report eda gru-seed-robustness provenance reproduce-track-only monthly-activity monthly-activity-xgboost monthly-activity-lstm monthly-activity-prophet monthly-activity-ensemble serve test
 
 frontend-data:
@@ -54,4 +56,4 @@ serve: frontend-data monthly-frontend-data
 	python3 -m http.server 8000 --directory frontend
 
 test:
-	KMP_DUPLICATE_LIB_OK=TRUE python3 -m unittest discover -s tests -p 'test_*.py' -v
+	KMP_DUPLICATE_LIB_OK=TRUE $(PYTHON) -m unittest discover -s tests -p 'test_*.py' -v
