@@ -16,6 +16,8 @@ from src.genesis_gridsat_gru import (
     GenesisCNNGRU, GenesisGridSatSamples, GenesisImageDataset, REPOSITORY_ROOT,
     _times, load_genesis_images, load_genesis_samples, split_genesis_samples,
 )
+from src.gridsat_gru import ImageScaler
+from src.run_genesis_gridsat_gru import fit_image_scaler, materialize_crops
 
 
 class GenesisGridSatGRUTests(unittest.TestCase):
@@ -41,6 +43,25 @@ class GenesisGridSatGRUTests(unittest.TestCase):
             images, label = dataset[0]
             self.assertEqual(tuple(images.shape), (9, 1, 201, 201))
             self.assertEqual(label.item(), 1.0)
+
+    def test_local_crop_cache_and_observable_scaler_match_existing_behavior(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "drive" / "train" / "crop.npz"
+            source.parent.mkdir(parents=True)
+            np.savez(source, image=np.full((201, 201), 200.0, dtype=np.float32))
+            samples = GenesisGridSatSamples(
+                pd.DataFrame({"split": ["train"], "label_24h": [1]}), ((source,) * 9,)
+            )
+            messages: list[str] = []
+            cached = materialize_crops({"train": samples}, root / "drive", root / "local", 1, messages.append)["train"]
+            self.assertTrue(all(path.exists() and root / "local" in path.parents for path in cached.image_paths[0]))
+            self.assertIn("progress: 1/1 crops (1 copied, 0 cached)", messages)
+            paths = tuple(path for history in cached.image_paths for path in history)
+            scaler = fit_image_scaler(paths, 1, messages.append)
+            expected = ImageScaler.fit(paths)
+            self.assertEqual(scaler, expected)
+            self.assertIn("progress: 9/9 training crops", messages)
 
     def test_parser_and_adapter_handle_real_format_full_cohort(self) -> None:
         value = "|".join(f"1982-01-{day:02d}T{hour:02d}:00:00Z" for day, hour in ((2, 18), (2, 21), (3, 0), (3, 3), (3, 6), (3, 9), (3, 12), (3, 15), (3, 18)))
