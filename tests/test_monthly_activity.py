@@ -12,6 +12,7 @@ from src.monthly_activity import (
     _forecasts,
     build_monthly_series,
     candidate_orders,
+    _metrics,
     seasonal_naive,
     split_label,
 )
@@ -70,6 +71,11 @@ class MonthlyActivityTests(unittest.TestCase):
         orders = candidate_orders()
         self.assertTrue(any(order[2] > 0 for order in orders["arima"]))
         self.assertTrue(any(order[0][2] > 0 and order[1][2] > 0 for order in orders["sarima"]))
+
+    def test_wape_uses_total_absolute_error_and_is_undefined_for_zero_actual_total(self):
+        metrics = _metrics(pd.Series([2.0, 3.0]), pd.Series([1.0, 5.0]), pd.Series([0.0, 1.0]))
+        self.assertEqual(metrics["wape"], 60.0)
+        self.assertTrue(np.isnan(_metrics(pd.Series([0.0, 0.0]), pd.Series([1.0, 1.0]), pd.Series([0.0, 1.0]))["wape"]))
 
     def test_order_selection_only_requests_validation_history(self):
         index = pd.date_range(START, END, freq="MS", tz="UTC")

@@ -16,6 +16,7 @@ MODELS = {
     "xgboost": "XGBoost",
     "lstm": "LSTM",
     "prophet": "Prophet",
+    "autots": "AutoTS",
     "ensemble_xgboost_prophet": "XGBoost + Prophet ensemble",
 }
 
@@ -36,18 +37,24 @@ def build_payload(results_dir: str | Path = "results/monthly_activity_ts") -> di
         "xgboost": "xgboost_forecasts.csv",
         "lstm": "lstm_forecasts.csv",
         "prophet": "prophet_forecasts.csv",
+        "autots": "autots_forecasts.csv",
         "ensemble_xgboost_prophet": "ensemble_forecasts.csv",
     }
-    forecasts = {model: records(root / filename) for model, filename in forecast_files.items()}
+    # AutoTS is optional until its bounded search has produced held-out
+    # forecasts; old result directories remain renderable without placeholders.
+    forecasts = {model: records(root / filename) for model, filename in forecast_files.items() if (root / filename).exists()}
     classical = pd.read_csv(root / "metrics.csv")
-    metrics = [*classical.to_dict("records")]
-    for model in ("xgboost", "lstm", "prophet"):
-        metrics.extend(records(root / f"{model}_metrics.csv"))
+    metrics = records(root / "metrics.csv")
+    for model in ("xgboost", "lstm", "prophet", "autots"):
+        path = root / f"{model}_metrics.csv"
+        if path.exists() and model not in set(classical.model):
+            metrics.extend(records(path))
     metrics.extend(records(root / "ensemble_metrics.csv"))
+    models = {model: label for model, label in MODELS.items() if model in forecasts or model not in forecast_files}
     return {
         "title": "Monthly storm activity",
         "source": "IBTrACS v04r01 North Atlantic / hurdat_atl",
-        "models": MODELS,
+        "models": models,
         "series": records(root / "monthly_series.csv"),
         "decomposition": records(root / "decomposition.csv"),
         "forecasts": forecasts,

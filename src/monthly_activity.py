@@ -138,7 +138,8 @@ def candidate_orders() -> dict[str, list[object]]:
 def _metrics(actual: pd.Series, prediction: pd.Series, train: pd.Series) -> dict[str, float | int]:
     error = prediction - actual
     scale = float(np.mean(np.abs(np.diff(train.to_numpy()))))
-    return {"n": int(len(actual)), "mae": float(np.mean(np.abs(error))), "rmse": float(np.sqrt(np.mean(error ** 2))), "mase": float(np.mean(np.abs(error)) / scale) if scale else float("nan")}
+    actual_total = float(actual.sum())
+    return {"n": int(len(actual)), "mae": float(np.mean(np.abs(error))), "rmse": float(np.sqrt(np.mean(error ** 2))), "mase": float(np.mean(np.abs(error)) / scale) if scale else float("nan"), "wape": float(np.abs(error).sum() / actual_total * 100) if actual_total else float("nan")}
 
 
 def run_experiment(data: pd.DataFrame, output_dir: str | Path) -> dict[str, object]:
@@ -198,6 +199,7 @@ def _plots(series: pd.Series, decomposition: pd.DataFrame, forecasts: pd.DataFra
     lines = [(frame.forecast.tolist(), color) for (_, frame), color in zip(forecasts.groupby("model"), ["#f28e2b", "#59a14f", "#e15759", "#af7aa1", "#76b7b2"])]
     actual = forecasts.drop_duplicates("month").actual.tolist(); _svg(output / "forecast_vs_actual.svg", "One-step forecasts vs actual", [(actual, "#111111")] + lines)
     test = pd.DataFrame(metrics).query("split == 'test'").set_index("model"); _svg(output / "model_comparison.svg", "Test MAE comparison", [], test.mae.tolist())
+    _svg(output / "model_wape_comparison.svg", "Test WAPE comparison (%)", [], test.wape.tolist())
 
 
 def main() -> None:

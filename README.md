@@ -40,18 +40,19 @@ This is a separate chronological time-series experiment, not an aggregation of t
 
 The series contains 552 monthly observations from 1980–2025, 738 retained SIDs, and 304 observed zero-count months. All models use expanding-window one-step-ahead forecasts with fixed splits: train 1980–2015, validation 2016–2019, and test 2020–2025.
 
-Models include seasonal naive, ARIMA, SARIMA, additive Holt–Winters, XGBoost with past-only features, a small LSTM, Prophet, and a validation-weighted XGBoost–Prophet ensemble.
+Models include seasonal naive, ARIMA, SARIMA, additive Holt–Winters, XGBoost with past-only features, a small LSTM, Prophet, AutoTS, and a validation-weighted XGBoost–Prophet ensemble.
 
-| Held-out model | MAE | RMSE | MASE |
-|---|---:|---:|---:|
-| Seasonal naive | 1.181 | 2.017 | 1.083 |
-| ARIMA | 1.528 | 2.392 | 1.401 |
-| SARIMA | 1.181 | 2.017 | 1.083 |
-| Additive Holt–Winters | 2.093 | 2.606 | 1.920 |
-| XGBoost | 1.010 | 1.506 | 0.926 |
-| LSTM | 1.254 | 1.947 | 1.150 |
-| Prophet | 1.030 | 1.431 | 0.945 |
-| XGBoost–Prophet ensemble | 1.016 | 1.461 | 0.931 |
+| Held-out model | MAE | RMSE | MASE | WAPE (%) |
+|---|---:|---:|---:|---:|
+| Seasonal naive | 1.181 | 2.017 | 1.083 | 70.833 |
+| ARIMA | 1.528 | 2.392 | 1.401 | 91.667 |
+| SARIMA | 1.181 | 2.017 | 1.083 | 70.833 |
+| Additive Holt–Winters | 2.093 | 2.606 | 1.920 | 125.594 |
+| XGBoost | 1.010 | 1.506 | 0.926 | 60.575 |
+| LSTM | 1.254 | 1.947 | 1.150 | 75.221 |
+| Prophet | 1.030 | 1.431 | 0.945 | 61.803 |
+| AutoTS | 1.097 | 2.017 | 1.006 | 65.833 |
+| XGBoost–Prophet ensemble | 1.016 | 1.461 | 0.931 | 60.937 |
 
 The ensemble weight (XGBoost 0.55, Prophet 0.45) was selected on validation forecasts only. Artifacts for this component are in `results/monthly_activity_ts/`.
 
@@ -132,6 +133,7 @@ IBTRACS_CSV="$IBTRACS_CSV" make monthly-activity
 IBTRACS_CSV="$IBTRACS_CSV" make monthly-activity-xgboost
 IBTRACS_CSV="$IBTRACS_CSV" make monthly-activity-lstm
 IBTRACS_CSV="$IBTRACS_CSV" make monthly-activity-prophet
+IBTRACS_CSV="$IBTRACS_CSV" make monthly-activity-autots
 make monthly-activity-ensemble
 make monthly-frontend-data
 ```

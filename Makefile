@@ -1,6 +1,6 @@
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
-.PHONY: frontend-data monthly-frontend-data evaluation-report eda gru-seed-robustness provenance reproduce-track-only monthly-activity monthly-activity-xgboost monthly-activity-lstm monthly-activity-prophet monthly-activity-ensemble serve test
+.PHONY: frontend-data monthly-frontend-data evaluation-report eda gru-seed-robustness provenance reproduce-track-only monthly-activity monthly-activity-xgboost monthly-activity-lstm monthly-activity-prophet monthly-activity-autots monthly-activity-ensemble serve test
 
 frontend-data:
 	python3 -m src.export_replay
@@ -48,6 +48,10 @@ monthly-activity-lstm:
 monthly-activity-prophet:
 	test -n "$(IBTRACS_CSV)"
 	python3 -m src.monthly_activity_prophet "$(IBTRACS_CSV)" --output-dir results/monthly_activity_ts
+
+monthly-activity-autots:
+	test -n "$(IBTRACS_CSV)"
+	python3 -m src.monthly_activity_autots "$(IBTRACS_CSV)" --output-dir results/monthly_activity_ts
 
 monthly-activity-ensemble:
 	python3 -m src.monthly_activity_ensemble --output-dir results/monthly_activity_ts

@@ -78,12 +78,15 @@ def run_experiment(output_dir: str | Path) -> dict[str, object]:
 def _plots(frame: pd.DataFrame, ensemble_metrics: list[dict[str, object]], output: Path) -> None:
     _svg(output / "ensemble_forecast_vs_actual.svg", "XGBoost + Prophet ensemble vs actual", [(frame.actual.tolist(), "#111111"), (frame.forecast.tolist(), "#4e79a7")])
     metrics = []
-    for filename in ("metrics.csv", "xgboost_metrics.csv", "lstm_metrics.csv", "prophet_metrics.csv"):
-        metrics.append(pd.read_csv(output / filename))
+    for filename in ("metrics.csv", "xgboost_metrics.csv", "lstm_metrics.csv", "prophet_metrics.csv", "autots_metrics.csv"):
+        path = output / filename
+        if path.exists() and not (filename == "autots_metrics.csv" and "autots" in pd.read_csv(output / "metrics.csv").model.values):
+            metrics.append(pd.read_csv(path))
     metrics.append(pd.DataFrame(ensemble_metrics))
     comparison = pd.concat(metrics, ignore_index=True)
     test = comparison[comparison.split == "test"].drop_duplicates("model").set_index("model")
     _bar_svg(output / "ensemble_model_comparison.svg", "Test MAE: all monthly models", list(test.index), test.mae.tolist())
+    _bar_svg(output / "ensemble_model_wape_comparison.svg", "Test WAPE: all monthly models (%)", list(test.index), test.wape.tolist())
 
 
 def main() -> None:
