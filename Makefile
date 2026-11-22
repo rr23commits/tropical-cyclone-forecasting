@@ -1,6 +1,6 @@
 PYTHON ?= $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
-.PHONY: frontend-data monthly-frontend-data evaluation-report eda gru-seed-robustness provenance reproduce-track-only monthly-activity monthly-activity-xgboost monthly-activity-lstm monthly-activity-prophet monthly-activity-autots monthly-activity-ensemble serve test
+.PHONY: frontend-data monthly-frontend-data evaluation-report eda gru-seed-robustness provenance reproduce-track-only monthly-activity monthly-activity-xgboost monthly-activity-lstm monthly-activity-prophet monthly-activity-autots monthly-activity-ensemble monthly-activity-advanced monthly-activity-compare serve test
 
 frontend-data:
 	python3 -m src.export_replay
@@ -55,6 +55,22 @@ monthly-activity-autots:
 
 monthly-activity-ensemble:
 	python3 -m src.monthly_activity_ensemble --output-dir results/monthly_activity_ts
+
+# Advanced monthly models. These read results/monthly_activity_ts/monthly_series.csv
+# (and retained_storm_audit.csv), so they run without the raw IBTrACS CSV.
+monthly-activity-advanced:
+	KMP_DUPLICATE_LIB_OK=TRUE python3 -m src.monthly_activity_rnn --cell gru --mode baseline
+	KMP_DUPLICATE_LIB_OK=TRUE python3 -m src.monthly_activity_rnn --cell gru --mode tuned --trials 10
+	KMP_DUPLICATE_LIB_OK=TRUE python3 -m src.monthly_activity_rnn --cell lstm --mode tuned --trials 10
+	python3 -m src.monthly_activity_garch
+	python3 -m src.monthly_activity_var
+	KMP_DUPLICATE_LIB_OK=TRUE python3 -m src.monthly_activity_transformer --trials 6 --final-seeds 2
+	python3 -m src.monthly_activity_xgboost_tuned
+	python3 -m src.monthly_activity_prophet_tuned --trials 8
+	python3 -m src.monthly_activity_compare
+
+monthly-activity-compare:
+	python3 -m src.monthly_activity_compare
 
 serve: frontend-data monthly-frontend-data
 	python3 -m http.server 8000 --directory frontend

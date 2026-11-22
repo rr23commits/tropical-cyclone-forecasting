@@ -7,3 +7,15 @@ __pycache__/
 *.py[cod]
 .DS_Store
 results/gridsat_dataset/
+
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+.vscode/
+.DS_Store
+Thumbs.db

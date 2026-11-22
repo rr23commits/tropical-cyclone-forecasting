@@ -7,3 +7,6 @@ autots>=1.0.4
 torch>=2.0
 cdsapi>=0.7.7
 netCDF4
+arch>=7.0
+scipy>=1.11
+matplotlib>=3.8
