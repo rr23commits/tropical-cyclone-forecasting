@@ -1,0 +1,15 @@
+{
+  "model": "prophet_tuned",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "selected_hyperparameters": {
+    "changepoint_prior_scale": 0.1,
+    "changepoint_range": 0.95,
+    "seasonality_prior_scale": 1.0,
+    "yearly_fourier_order": 8,
+    "seasonality_mode": "additive"
+  },
+  "search_trials": 8,
+  "selection_metric": "validation MAE"
+}

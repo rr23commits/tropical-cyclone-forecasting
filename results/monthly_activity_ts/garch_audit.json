@@ -1,0 +1,60 @@
+{
+  "model": "garch",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "selected_configuration": {
+    "ar_lags": 0,
+    "harmonics": 3,
+    "p": 1,
+    "q": 1,
+    "dist": "normal"
+  },
+  "search_trials": 16,
+  "selection_metric": "validation MAE",
+  "arch_lm_test_train_residuals": {
+    "lags": 6,
+    "statistic": 36.442009146333206,
+    "p_value": 2.2615925520357534e-06
+  },
+  "prediction_intervals_95": {
+    "validation": {
+      "garch": {
+        "coverage_95": 95.83333333333334,
+        "mean_width": 3.662009668918954,
+        "winkler": 5.099887374581149
+      },
+      "constant_variance": {
+        "coverage_95": 93.75,
+        "mean_width": 4.392759180837175,
+        "winkler": 6.13576082973638
+      }
+    },
+    "test": {
+      "garch": {
+        "coverage_95": 88.88888888888889,
+        "mean_width": 5.1589621679147655,
+        "winkler": 11.33653922156167
+      },
+      "constant_variance": {
+        "coverage_95": 84.72222222222221,
+        "mean_width": 4.559657780570201,
+        "winkler": 10.64446443370375
+      }
+    }
+  },
+  "mean_conditional_sigma_by_month": {
+    "1": 0.6069509665910257,
+    "2": 0.6861221734875625,
+    "3": 0.5845446758295303,
+    "4": 0.5854006543682052,
+    "5": 0.6565972185833847,
+    "6": 0.8433886855131684,
+    "7": 1.645914325746671,
+    "8": 1.5208373849017334,
+    "9": 1.838650747033018,
+    "10": 2.2930306675310286,
+    "11": 1.5812404081860643,
+    "12": 1.1173167706505815
+  }
+}

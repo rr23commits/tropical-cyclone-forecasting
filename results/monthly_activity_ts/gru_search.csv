@@ -1,0 +1,5 @@
+cell,hidden_size,layers,dropout,learning_rate,weight_decay,epochs,lookback,covariates,loss,seed,n_seeds,validation_mae,validation_rmse
+gru,4,1,0.0,0.005,0.0,30,12,False,mse,42,1,1.353707372131887,1.741090826517364
+gru,4,1,0.0,0.01,0.0,30,12,False,mse,42,1,1.1540653573618618,1.5526056395192613
+gru,8,1,0.0,0.005,0.0,30,12,False,mse,42,1,1.3438581878689344,1.7955475174475102
+gru,8,1,0.0,0.01,0.0,30,12,False,mse,42,1,1.2260916114729727,1.5892386887687147

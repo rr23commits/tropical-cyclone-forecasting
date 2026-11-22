@@ -72,6 +72,56 @@ The frozen candidate manifest contains 1,276 candidates. After requiring all nin
 
 For context, an always-positive majority-class baseline has accuracy 0.675 and F1 0.806 on this test split; ROC-AUC is undefined for its constant output. The CNN–GRU results are therefore reported as an exploratory imagery result, not as a replacement for the primary storm-track forecasting study.
 
+### Advanced monthly models, fine-tuning and comparison
+
+Same series and protocol as above (train 1980-2015, validation 2016-2019, test 2020-2025, expanding-window one-step forecasts, hyperparameters chosen on validation only). New models run from the archived `monthly_series.csv`, so the raw IBTrACS file is not needed: `make monthly-activity-advanced`, then `make monthly-activity-compare`.
+
+| Requirement | Implementation |
+|---|---|
+| LSTM / GRU | `src/monthly_activity_rnn.py` (GRU baseline; tuned GRU and LSTM with lookback, width, depth, dropout, weight decay, calendar covariates, MSE vs Poisson loss, seed averaging) |
+| XGBoost | existing, plus `monthly_activity_xgboost_tuned.py` (richer past-only features, 60-trial search, Poisson objective option) |
+| Prophet | existing, plus `monthly_activity_prophet_tuned.py` (8-trial search incl. multiplicative seasonality) |
+| ARCH / GARCH | `monthly_activity_garch.py` (seasonal-harmonic mean + ARCH(1)/GARCH(1,1), normal/t, 95% conditional intervals) |
+| VAR | `monthly_activity_var.py` (VARX on a first-half / second-half-of-month split of the count; `--exog` accepts real climate drivers) |
+| Time-series Transformer | `monthly_activity_transformer.py` (PatchTST-style, univariate; 6-trial search, 2-seed average) |
+| Metrics, table, plots | `monthly_activity_compare.py` -> `results/monthly_activity_ts/comparison_*` (RMSE, MAE, MAPE, sMAPE, MASE, WAPE, bias; Diebold-Mariano tests; error by season) |
+
+Full tables: `results/monthly_activity_ts/comparison_table.md`. Figures: `comparison_error_bars.png`, `comparison_test_overlay.png`, `comparison_error_by_season.png`, `comparison_tuning_gain.png`, `comparison_validation_vs_test.png`.
+
+Held-out test (72 months), sorted by RMSE:
+
+| Model | RMSE | MAE | MAPE % (y>0) |
+|---|---:|---:|---:|
+| Prophet | 1.431 | 1.030 | 51.4 |
+| Prophet (tuned) | 1.459 | 1.043 | 52.2 |
+| XGBoost+Prophet ensemble | 1.461 | 1.016 | 51.5 |
+| LSTM (tuned) | 1.477 | 0.984 | 56.1 |
+| GRU (tuned) | 1.502 | 0.998 | 57.1 |
+| VARX (half-month) | 1.503 | 1.022 | 56.8 |
+| XGBoost | 1.506 | 1.010 | 51.8 |
+| XGBoost (tuned) | 1.523 | 0.976 | 53.5 |
+| ARX-GARCH | 1.536 | 1.012 | 56.7 |
+| PatchTST | 1.560 | 1.026 | 50.5 |
+| LSTM | 1.947 | 1.254 | 60.1 |
+| Seasonal naive / SARIMA | 2.017 | 1.181 | 78.9 |
+| GRU | 2.050 | 1.401 | 59.6 |
+| ARIMA | 2.392 | 1.528 | 94.5 |
+| Holt-Winters | 2.606 | 2.093 | 92.4 |
+
+**Metric notes.** The series is zero in 304 of 552 months, so MAPE is computed only on months with at least one storm (33 of 72 test months). sMAPE is reported but is dominated by a zero-month artifact (any small non-zero forecast in a zero month scores 200%), so it penalises smooth models and should not be used to rank them. RMSE and MAE are the primary metrics.
+
+**Fine-tuning.** Validation-selected tuning cut test RMSE by about 24% for LSTM and 27% for GRU (mainly from a 24-month lookback and calendar covariates), but changed XGBoost by only +1% (RMSE; MAE -3%) and made Prophet slightly worse on test (+2% RMSE) despite a better validation score, a sign of overfitting the 48 validation months. PatchTST validation MAE (0.80) was clearly worse than the other models' (0.60-0.65) and its test MAE ended near the pack; with ~450 training points it has little room to beat simpler models.
+
+**Statistical caution.** Against seasonal naive, Diebold-Mariano tests (squared error) give p of about 0.03-0.05 for Prophet, tuned Prophet, the ensemble and tuned LSTM, and about 0.06-0.09 for XGBoost, VARX, tuned GRU, GARCH and PatchTST. Differences among the top ten models are not significant (Diebold-Mariano of Prophet vs. each of them gives p between 0.06 and 0.39). Treat the ranking inside the top group as a tie; the robust finding is that seasonality-aware learned models beat ARIMA, Holt-Winters and the naive baselines.
+
+### Interpretation for the real-world domain
+
+* **Peak season is where it matters and where models fail.** On the test set the off-season (Dec-May, 36 months) is nearly trivial (MAE 0.2-0.4 for all models). Errors concentrate in Aug-Oct (MAE about 1.8-2.1) and Jun-Jul (about 1.5-1.8). The learned models under-forecast in these months (peak-season bias -0.5 to -1.1 storms/month for the top models, larger for the untuned LSTM/GRU), whereas seasonal naive is less biased (+0.33) but noisier. Month-ahead counts are not precise enough to plan for individual months; they are better read as seasonal-level guidance.
+* **Volatility is seasonal and clustered.** An ARCH-LM test on training residuals rejects constant variance (p about 2e-6). GARCH conditional sigma is about 0.6 in Jan-May, rises to about 1.5-1.8 in Jul-Sep, and peaks at about 2.3 in October. The practical implication is that uncertainty bands should widen in the active months. GARCH 95% intervals covered 88.9% of test months vs. 84.7% for a constant-variance band, still below nominal, and were wider with a slightly worse Winkler score (11.3 vs 10.6), so the calibration gain is modest.
+* **Little extra signal from clustering.** The VAR first-half/second-half-of-month Granger tests were not significant (p = 0.12, 0.60), and VARX performed like the univariate models. Gains beyond the seasonal cycle and recent history probably need external drivers (ENSO, Atlantic SST, vertical wind shear), which this repository does not contain.
+* **Operational reading.** Use the model forecast as a prior on monthly activity and the GARCH band for planning headroom in Jul-Oct. Do not use these counts for storm-level or landfall decisions; that is what the track-forecasting component addresses.
+* **Limits.** One test window of 72 months, a single series from a reanalysed record, counts defined by first retained observation (not physical genesis), and no climate covariates.
+
 ## Data
 
 The storm-track and monthly components use the official IBTrACS v04r01 North Atlantic CSV and HURDAT-aligned `USA_*` fields. Records are retained when they have `BASIN=NA`, `TRACK_TYPE=main`, `USA_AGENCY=hurdat_atl`, seasons 1980–2025, exact six-hour UTC timestamps, and valid position and maximum sustained-wind values. The raw IBTrACS CSV is not committed; supply its local path through `IBTRACS_CSV`.

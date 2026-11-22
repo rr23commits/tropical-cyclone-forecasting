@@ -5,8 +5,8 @@ const $=id=>document.getElementById(id),tag=(n,a={})=>"<"+n+" "+Object.entries(a
 let data,borders,state={storm:null,index:0,model:"gru",map:null,drag:null,timer:null};
 const stamp=v=>new Date(v).toLocaleString("en-GB",{timeZone:"UTC",month:"short",day:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}).replace(",","")+" UTC";
 const pos=(v,lat)=>Math.abs(v).toFixed(1)+"°"+(lat?(v>=0?"N":"S"):(v>=0?"E":"W"));
-Promise.all([fetch("data/replay.json").then(r=>r.ok?r.json():Promise.reject(Error("Run make frontend-data first."))),fetch("data/countries-110m.json").then(r=>r.ok?r.json():Promise.reject(Error("Missing local geographic boundary data.")))]).then(x=>init(x[0],x[1])).catch(e=>{$("app").textContent=e.message});
-function init(payload,world){data=payload;borders=decode(world);$("app").replaceChildren($("ui").content.cloneNode(true));$("app").classList.remove("loading");
+fetch("data/replay.json").then(r=>r.ok?r.json():Promise.reject(Error("Missing storm replay data. Run: python -m src.export_replay"))).then(payload=>fetch("data/countries-110m.json").then(r=>r.ok?r.json():null).catch(()=>null).then(world=>{if(!world)console.warn("World boundary file not found. Storm tracks will load without country outlines.");init(payload,world)})).catch(e=>{$("app").textContent=e.message});
+function init(payload,world){data=payload;borders=world?decode(world):[];$("app").replaceChildren($("ui").content.cloneNode(true));$("app").classList.remove("loading");
  const select=$("stormSelect");data.storms.forEach((s,i)=>select.add(new Option((basins[s.basin]||s.basin)+" "+s.season+" — "+s.name,i)));$("modelSelect").innerHTML=data.models.map(m=>"<option value='"+m+"'>"+names[m]+"</option>").join("");
  select.onchange=()=>{stop();state.storm=data.storms[select.value];state.index=0;fit();render()};$("modelSelect").onchange=e=>{state.model=e.target.value;render()};["showObserved","showActual"].forEach(id=>$(id).onchange=render);
  document.querySelectorAll(".panel-toggle,.panel-edge-control,.edge-tab").forEach(b=>b.onclick=()=>togglePanel(b.dataset.panel));

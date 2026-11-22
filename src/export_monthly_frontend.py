@@ -15,9 +15,13 @@ MODELS = {
     "holt_winters": "Additive Holt-Winters",
     "xgboost": "XGBoost",
     "lstm": "LSTM",
+    "gru": "GRU",
     "prophet": "Prophet",
     "autots": "AutoTS",
     "ensemble_xgboost_prophet": "XGBoost + Prophet ensemble",
+    "garch": "ARCH / GARCH",
+    "var": "VAR",
+    "patchtst": "Transformer (PatchTST)",
 }
 
 
@@ -36,20 +40,26 @@ def build_payload(results_dir: str | Path = "results/monthly_activity_ts") -> di
         "seasonal_naive": "forecasts.csv",
         "xgboost": "xgboost_forecasts.csv",
         "lstm": "lstm_forecasts.csv",
+        "gru": "gru_forecasts.csv",
         "prophet": "prophet_forecasts.csv",
         "autots": "autots_forecasts.csv",
         "ensemble_xgboost_prophet": "ensemble_forecasts.csv",
+        "garch": "garch_forecasts.csv",
+        "var": "var_forecasts.csv",
+        "patchtst": "patchtst_forecasts.csv",
     }
     # AutoTS is optional until its bounded search has produced held-out
     # forecasts; old result directories remain renderable without placeholders.
     forecasts = {model: records(root / filename) for model, filename in forecast_files.items() if (root / filename).exists()}
     classical = pd.read_csv(root / "metrics.csv")
     metrics = records(root / "metrics.csv")
-    for model in ("xgboost", "lstm", "prophet", "autots"):
+    for model in ("xgboost", "lstm", "gru", "prophet", "autots", "garch", "var", "patchtst"):
         path = root / f"{model}_metrics.csv"
         if path.exists() and model not in set(classical.model):
             metrics.extend(records(path))
-    metrics.extend(records(root / "ensemble_metrics.csv"))
+    ensemble_metrics = root / "ensemble_metrics.csv"
+    if ensemble_metrics.exists():
+        metrics.extend(records(ensemble_metrics))
     models = {model: label for model, label in MODELS.items() if model in forecasts or model not in forecast_files}
     return {
         "title": "Monthly storm activity",

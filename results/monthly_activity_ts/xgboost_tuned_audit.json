@@ -1,0 +1,29 @@
+{
+  "model": "xgboost_tuned",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "selected_hyperparameters": {
+    "feature_set": "base",
+    "objective": "reg:squarederror",
+    "max_depth": 2,
+    "learning_rate": 0.1,
+    "n_estimators": 50,
+    "subsample": 0.7,
+    "colsample_bytree": 1.0,
+    "min_child_weight": 1,
+    "reg_lambda": 10.0
+  },
+  "search_trials": 60,
+  "selection_metric": "validation MAE",
+  "final_seed_average": 5,
+  "feature_gain_importance_train_only": {
+    "month_sin": 96.07382202148438,
+    "month_cos": 16.334156036376953,
+    "lag_1": 7.47745418548584,
+    "lag_3": 6.334019184112549,
+    "lag_2": 5.016733169555664,
+    "lag_6": 3.779299020767212,
+    "lag_12": 2.8854732513427734
+  }
+}

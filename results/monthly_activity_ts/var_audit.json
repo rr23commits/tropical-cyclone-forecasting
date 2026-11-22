@@ -1,0 +1,25 @@
+{
+  "model": "var",
+  "forecast_months": 120,
+  "validation_months": 48,
+  "test_months": 72,
+  "system_variables": [
+    "first_half",
+    "second_half"
+  ],
+  "selected_lags": 2,
+  "search_trials": 5,
+  "selection_metric": "validation MAE",
+  "exogenous_deterministic": "3 seasonal harmonics",
+  "external_drivers_file": null,
+  "granger_causality_train": {
+    "second_half -> first_half": {
+      "f_stat": 0.5107596657056547,
+      "p_value": 0.6002262501505338
+    },
+    "first_half -> second_half": {
+      "f_stat": 2.1435522146285684,
+      "p_value": 0.11788004144174037
+    }
+  }
+}
